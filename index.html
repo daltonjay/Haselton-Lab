@@ -361,6 +361,42 @@ section { padding: 6rem 5%; }
 /* ============================================================
    JOIN US SECTION
    ============================================================ */
+
+/* Lab group photo — sits above the join-section navy block */
+.lab-photo-banner {
+  width: 100%;
+  max-height: 480px;
+  overflow: hidden;
+  position: relative;
+  background: var(--navy);
+}
+.lab-photo-banner img {
+  width: 100%;
+  height: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  object-position: center 30%; /* ✏️ adjust vertical crop: "center top" / "center center" / "center 40%" */
+  display: block;
+  transition: transform 6s ease;
+}
+.lab-photo-banner:hover img { transform: scale(1.02); }
+.lab-photo-banner .lab-photo-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.55));
+  color: rgba(255,255,255,0.85);
+  font-size: 13px; padding: 2rem 5% 1rem;
+  font-family: var(--font-sans);
+}
+
+/* Placeholder shown when no photo is uploaded yet */
+.lab-photo-placeholder {
+  width: 100%; height: 220px;
+  background: var(--navy);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  color: rgba(255,255,255,0.4); font-size: 14px; font-family: var(--font-sans);
+}
+.lab-photo-placeholder .ph-icon { font-size: 2.5rem; }
+
 .join-section {
   background: var(--navy);
   display: grid; grid-template-columns: 1fr 1fr;
@@ -784,7 +820,7 @@ footer {
 
     <!-- Principal Investigator -->
     <div class="team-card">
-      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/haselton.jpg' alt="Dr. Dalton Nelson"
+      <img src='photos/haselton.jpg' alt="Dr. Dalton Nelson"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>Prof. Rick Haselton</h4>
       <div class="role">Principal Investigator</div>
@@ -793,7 +829,7 @@ footer {
 
     <!-- Team member 2 -->
     <div class="team-card">
-      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/DJN_Headshot.jpeg' alt="Dr. Dalton Nelson"
+      <img src='photos/DJN_Headshot.jpeg' alt="Dr. Dalton Nelson"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>Dalton J. Nelson, PhD</h4>
       <div class="role">Postdoctoral Fellow</div>
@@ -802,7 +838,7 @@ footer {
 
     <!-- Team member 3 -->
     <div class="team-card">
-      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/Spurlock.png' alt="Dr. Nick Spurlock"
+      <img src='photos/Spurlock.png' alt="Dr. Nick Spurlock"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>Nick Spurlock, PhD</h4>
       <div class="role">Janitor</div>
@@ -811,7 +847,7 @@ footer {
 
     <!-- Team member 4 -->
     <div class="team-card">
-      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/Evans.jpg' alt="David Evans"
+      <img src='photos/Evans.jpg' alt="David Evans"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>David Evans</h4>
       <div class="role">PhD Candidate</div>
@@ -820,7 +856,7 @@ footer {
     
     <!-- Team member 5 -->
     <div class="team-card">
-      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/jang.jpeg' alt="Junghoon Jang"
+      <img src='photos/jang.jpeg' alt="Junghoon Jang"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>Junghoon Jang</h4>
       <div class="role">Masters Student</div>
@@ -829,7 +865,7 @@ footer {
     
     <!-- Team member 6 -->
     <div class="team-card">
-      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/Alex-Howard.jpg' alt="Alex Howard"
+      <img src='photos/Alex-Howard.jpg' alt="Alex Howard"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>Alex Howard</h4>
       <div class="role">Undergraduate Student</div>
@@ -874,7 +910,7 @@ footer {
       <div class="video-embed-wrapper">
         <!-- ✏️ YOUTUBE EXAMPLE — replace VIDEO_ID with your real YouTube video ID -->
         <iframe
-          src="https://youtu.be/PlQfjy_D3vk"
+          src="https://www.youtube.com/embed/PlQfjy_D3vk"
           title="Lab overview video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -899,7 +935,7 @@ footer {
       <div class="video-embed-wrapper">
         <!-- ✏️ Replace VIDEO_ID below -->
         <iframe
-          src="https://youtu.be/IfAmpGyhX8I"
+          src="https://www.youtube.com/embed/IfAmpGyhX8I"
           title="VU BME Department Overview"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -917,7 +953,7 @@ footer {
       <div class="video-embed-wrapper">
         <!-- ✏️ Replace VIDEO_ID below, or use a Google Drive preview URL -->
         <iframe
-          src="https://youtu.be/VukzUiiu_rA"
+          src="https://www.youtube.com/embed/VukzUiiu_rA"
           title="NSF I-Corps Video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -1086,6 +1122,32 @@ function showError() {
 loadPubMed();
 </script>
 
+
+<!-- ============================================================
+     LAB GROUP PHOTO
+     ✏️  HOW TO ADD YOUR LAB PHOTO:
+         1. Add your group photo to the GitHub 'photos/' folder
+         2. Replace "photos/lab-group.jpg" below with your actual filename
+         3. Adjust object-position in the CSS above to control the crop
+            (e.g. "center top" to favor faces near the top of the photo)
+         4. Update the caption text below
+         5. Once photo is added, delete the .lab-photo-placeholder div
+            and uncomment the <img> block
+     ============================================================ -->
+<div class="lab-photo-banner">
+
+  <!-- ✏️ UNCOMMENT THIS BLOCK and delete the placeholder below once you have a photo:
+  <img src="photos/lab-group.jpg" alt="Haselton Lab group photo">
+  <div class="lab-photo-caption">The Haselton Lab — Vanderbilt University, 2025</div>
+  -->
+
+  <!-- DELETE this placeholder once your photo is added -->
+  <div class="lab-photo-placeholder">
+    <span class="ph-icon">📷</span>
+    <span>Add your lab group photo here — see the HTML comment above for instructions</span>
+  </div>
+
+</div>
 
 <!-- ============================================================
      JOIN US SECTION
