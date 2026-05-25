@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     PAGE TITLE — appears in browser tab and search results
+     ============================================================ -->
+<title>Haselton Lab — Vanderbilt University</title>
+
+<!-- ============================================================
+     SEO META TAGS — edit description & keywords for Google
+     ============================================================ -->
+<meta name="description" content="The Haselton Lab at Vanderbilt University develops low-cost, accessible diagnostic tools for global health equity.">
+<meta name="keywords" content="biomedical engineering, diagnostics, global health, Vanderbilt, point-of-care, microfluidics">
+<meta name="author" content="Haselton Lab, Vanderbilt University">
+
+<!-- Open Graph tags — control how link previews appear on social media -->
+<meta property="og:title" content="Haselton Lab — Vanderbilt University BME">
+<meta property="og:description" content="Engineering diagnostics for a healthier world, everywhere.">
+<meta property="og:type" content="website">
+<!-- <meta property="og:image" content="https://yoursite.com/og-image.jpg"> -->
+
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS VARIABLES — change colors, fonts, and spacing site-wide
+   ============================================================
+   Edit these values to retheme the entire site at once.
+   --gold        : accent color (currently Vanderbilt gold)
+   --navy        : primary dark color
+   --teal        : secondary accent / links
+   --cream       : page background
+   ============================================================ */
+:root {
+  --gold:        #CFAA5A;
+  --gold-light:  #F5EDD6;
+  --gold-dark:   #8C6D2A;
+  --navy:        #000000;
+  --navy-mid:    #2C3E6B;
+  --teal:        #CFAA5A;
+  --teal-light:  #D6EFEC;
+  --cream:       #FBF8F2;
+  --text:        #1C1C1E;
+  --muted:       #5E6676;
+  --border:      rgba(26,39,68,0.12);
+  --radius:      14px;
+  --font-serif:  'Lora', Georgia, serif;
+  --font-sans:   'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+
+/* ============================================================
+   NAVIGATION BAR
+   ============================================================ */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(251,248,242,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+/* Lab name in top-left — edit the text in the HTML below */
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 17px; color: var(--navy);
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.nav-logo .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0;
+}
+/* Nav links — add/remove <li> items in the HTML below */
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  text-decoration: none; font-size: 14px; font-weight: 500;
+  color: var(--muted); transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--navy); }
+.nav-cta {
+  background: var(--navy); color: white !important;
+  padding: 8px 18px; border-radius: 8px;
+  font-size: 13px !important;
+}
+.nav-cta:hover { background: var(--navy-mid); color: white !important; }
+
+
+/* ============================================================
+   HERO SECTION (first thing visitors see)
+   ============================================================ */
+.hero {
+  min-height: 90vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 6rem 5% 5rem;
+  gap: 4rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(207,170,90,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* Small badge above the main headline */
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold-light); color: var(--gold-dark);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 50px;
+  margin-bottom: 1.5rem;
+}
+.hero-eyebrow .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+/* Main hero headline — edit font size with clamp(min, preferred, max) */
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 600; line-height: 1.2;
+  color: var(--navy); margin-bottom: 1.25rem;
+}
+.hero h1 em { font-style: italic; color: var(--teal); }
+.hero p {
+  font-size: 1.1rem; color: var(--muted);
+  max-width: 480px; margin-bottom: 2rem; line-height: 1.75;
+}
+.hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ---- Reusable button styles ---- */
+.btn-primary {
+  background: var(--navy); color: white;
+  padding: 13px 26px; border-radius: 10px;
+  font-family: var(--font-sans); font-size: 15px; font-weight: 500;
+  border: none; cursor: pointer; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); }
+.btn-secondary {
+  background: transparent; color: var(--navy);
+  padding: 13px 26px; border-radius: 10px;
+  font-family: var(--font-sans); font-size: 15px; font-weight: 500;
+  border: 1.5px solid var(--border); cursor: pointer;
+  text-decoration: none; transition: border-color 0.2s, background 0.2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-secondary:hover { border-color: var(--navy); background: rgba(26,39,68,0.04); }
+
+/* Hero right-side cards grid */
+.hero-visual {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; position: relative;
+}
+.hero-card {
+  background: white; border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  transition: transform 0.3s;
+}
+.hero-card:hover { transform: translateY(-3px); }
+/* Stagger every other card down for visual interest */
+.hero-card:nth-child(2) { margin-top: 28px; }
+.hero-card:nth-child(4) { margin-top: 28px; }
+.hero-card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; margin-bottom: 10px;
+}
+.hero-card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.hero-card p  { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+/* Icon background color variants */
+.ic-teal  { background: var(--teal-light); color: var(--teal); }
+.ic-gold  { background: var(--gold-light); color: var(--gold-dark); }
+.ic-navy  { background: rgba(26,39,68,0.07); color: var(--navy); }
+
+
+/* ============================================================
+   SHARED SECTION STYLES
+   ============================================================ */
+section { padding: 6rem 5%; }
+.section-label {
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 600; color: var(--navy); line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.section-sub {
+  font-size: 1.05rem; color: var(--muted); max-width: 600px;
+  line-height: 1.75; margin-bottom: 3rem;
+}
+
+
+/* ============================================================
+   STATS STRIP
+   ============================================================ */
+.stats-strip {
+  background: var(--navy); padding: 3.5rem 5%;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--font-serif); font-size: 2.8rem;
+  font-weight: 600; color: var(--gold); line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label { font-size: 13.5px; color: rgba(255,255,255,0.65); letter-spacing: 0.02em; }
+
+
+/* ============================================================
+   RESEARCH CARDS
+   ============================================================ */
+.research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.research-card {
+  background: white; border-radius: var(--radius);
+  border: 1px solid var(--border); padding: 1.75rem;
+  transition: box-shadow 0.25s, transform 0.25s;
+  position: relative; overflow: hidden;
+}
+/* Animated teal top border on hover */
+.research-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--teal); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.3s;
+}
+.research-card:hover::before { transform: scaleX(1); }
+.research-card:hover { box-shadow: 0 8px 30px rgba(26,39,68,0.08); transform: translateY(-3px); }
+.research-card-num {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 600;
+  color: var(--gold-light); margin-bottom: 0.75rem;
+}
+.research-card h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
+.research-card p  { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.tag {
+  display: inline-block; margin-top: 1rem;
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--teal); background: var(--teal-light);
+  padding: 4px 10px; border-radius: 50px;
+}
+
+
+/* ============================================================
+   MISSION SPLIT SECTION
+   ============================================================ */
+.mission-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  background: white; padding: 6rem 5%;
+}
+.mission-quote {
+  font-family: var(--font-serif); font-size: 1.55rem; font-style: italic;
+  color: var(--navy); line-height: 1.6; margin-bottom: 1.5rem;
+}
+.mission-quote span { color: var(--teal); }
+.mission-body { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+/* Dark navy panel on the right */
+.mission-visual {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-radius: 20px; padding: 2.5rem;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.mission-pill {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.08); border-radius: 12px;
+  padding: 14px 18px;
+}
+.mission-pill-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: rgba(207,170,90,0.2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; color: var(--gold);
+}
+.mission-pill-text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.4; }
+.mission-pill-text strong { color: white; display: block; font-size: 13px; margin-bottom: 2px; }
+
+
+/* ============================================================
+   TEAM SECTION
+   ============================================================ */
+.team-section { background: var(--cream); }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.team-card {
+  background: white; border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.5rem; text-align: center;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(26,39,68,0.09); }
+/* Avatar circle — initials display */
+.team-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-serif); font-size: 22px; font-weight: 600;
+  color: white;
+}
+/* To use a real photo instead of initials, replace the <div class="team-avatar"> with:
+   <img src="photo.jpg" alt="Name" style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;"> */
+.av-navy { background: var(--navy); }
+.av-teal { background: var(--teal); }
+.av-gold { background: var(--gold-dark); }
+.team-card h4   { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.team-card .role{ font-size: 12.5px; color: var(--teal); font-weight: 500; margin-bottom: 6px; }
+.team-card p    { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+
+/* ============================================================
+   PUBLICATIONS
+   ============================================================ */
+.pubs-section { background: white; }
+.pub-list { display: flex; flex-direction: column; gap: 16px; }
+.pub-card {
+  background: var(--cream); border-radius: 12px;
+  border: 1px solid var(--border); padding: 1.25rem 1.5rem;
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.pub-card:hover { border-color: var(--teal); }
+.pub-year {
+  font-family: var(--font-serif); font-size: 1.3rem;
+  font-weight: 600; color: var(--gold); min-width: 48px;
+  padding-top: 2px;
+}
+.pub-content h4 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.pub-content p  { font-size: 13px; color: var(--muted); }
+.pub-badge {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 3px 9px; border-radius: 50px; margin-top: 8px; display: inline-block;
+}
+.pub-badge.featured { background: var(--gold-light); color: var(--gold-dark); }
+.pub-badge.recent   { background: var(--teal-light); color: var(--teal); }
+/* To add a DOI link to a publication, wrap the title in an <a> tag:
+   <h4><a href="https://doi.org/..." target="_blank" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Title here</a></h4> */
+
+
+/* ============================================================
+   JOIN US SECTION
+   ============================================================ */
+.join-section {
+  background: var(--navy);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  padding: 6rem 5%;
+}
+.join-section .section-label { color: var(--gold); }
+.join-section .section-title { color: white; margin-bottom: 1rem; }
+.join-body { font-size: 1rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 2rem; }
+.join-options { display: flex; flex-direction: column; gap: 14px; }
+.join-option {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 1.1rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.join-option-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; margin-top: 6px;
+}
+.join-option-text h5 { font-size: 14px; font-weight: 600; color: white; margin-bottom: 3px; }
+.join-option-text p  { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.contact-section { background: var(--cream); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.contact-detail { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.contact-detail-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--teal-light); color: var(--teal);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.contact-detail-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.contact-detail-text strong { color: var(--navy); display: block; font-size: 13px; }
+/* Contact form card */
+.contact-form {
+  background: white; border-radius: var(--radius);
+  border: 1px solid var(--border); padding: 2rem;
+}
+.form-row { margin-bottom: 1rem; }
+.form-row label { display: block; font-size: 13px; font-weight: 500; color: var(--navy); margin-bottom: 5px; }
+.form-row input, .form-row textarea, .form-row select {
+  width: 100%; padding: 10px 14px; border-radius: 9px;
+  border: 1.5px solid var(--border); background: var(--cream);
+  font-family: var(--font-sans); font-size: 14px; color: var(--text);
+  transition: border-color 0.2s; outline: none;
+}
+.form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+  border-color: var(--teal);
+}
+.form-row textarea { resize: vertical; min-height: 90px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* NOTE: This form currently doesn't send emails. To make it functional, either:
+   1. Use Formspree (free): change the form action to https://formspree.io/f/YOUR_ID
+   2. Use Netlify Forms: add netlify attribute to the <form> tag
+   3. Wire it to your own backend API */
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--navy); padding: 3rem 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-family: var(--font-serif); font-size: 16px; color: rgba(255,255,255,0.8); }
+.footer-meta  { font-size: 13px; color: rgba(255,255,255,0.4); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.fade-in { opacity: 0; transform: translateY(18px); animation: fadeIn 0.65s ease forwards; }
+@keyframes fadeIn { to { opacity: 1; transform: none; } }
+.hero-content { animation: fadeIn 0.7s ease 0.1s both; }
+.hero-visual   { animation: fadeIn 0.7s ease 0.35s both; }
+
+/* Map placeholder — replace with a real Google Maps embed if desired */
+.map-placeholder {
+  width: 100%; height: 180px; border-radius: 12px;
+  background: var(--teal-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--teal); font-weight: 500;
+  margin-top: 1.5rem;
+  border: 1px dashed rgba(29,125,114,0.3);
+}
+/* To replace with real map, swap the .map-placeholder div with:
+   <iframe src="https://maps.google.com/maps?q=Vanderbilt+University&output=embed"
+     width="100%" height="180" style="border:0;border-radius:12px;" allowfullscreen loading="lazy"></iframe> */
+
+
+/* ============================================================
+   VIDEO GALLERY SECTION
+   ============================================================ */
+.video-section { background: var(--cream); }
+.video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+/* Responsive 16:9 wrapper — works for YouTube AND Google Drive */
+.video-embed-wrapper {
+  position: relative; width: 100%; padding-top: 56.25%; /* 16:9 ratio */
+  border-radius: var(--radius); overflow: hidden;
+  background: var(--navy);
+  box-shadow: 0 4px 20px rgba(26,39,68,0.12);
+}
+.video-embed-wrapper iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.video-card {
+  background: white; border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.video-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(26,39,68,0.10); }
+.video-card-meta { padding: 1rem 1.25rem; }
+.video-card-meta h4 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 4px; line-height: 1.4; }
+.video-card-meta p  { font-size: 13px; color: var(--muted); }
+.video-card-meta .tag { margin-top: 8px; }
+
+/* Featured (full-width) video */
+.video-card.featured { grid-column: 1 / -1; }
+
+
+/* ============================================================
+   PUBMED AUTO-LOADING PUBLICATIONS
+   ============================================================ */
+.pubs-section { background: white; }
+
+/* Loading / error states */
+#pub-loading {
+  text-align: center; padding: 3rem;
+  color: var(--muted); font-size: 14px;
+}
+#pub-loading .spinner {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 3px solid var(--teal-light);
+  border-top-color: var(--teal);
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+#pub-error { display: none; text-align: center; padding: 2rem; color: var(--muted); font-size: 14px; }
+
+/* PubMed source badge */
+.pubmed-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #e8f4fd; color: #1a7abf;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 50px; margin-top: 8px;
+  text-decoration: none;
+}
+.pubmed-badge:hover { background: #cfe4f5; }
+
+.pub-controls {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+}
+.pub-count-label { font-size: 13px; color: var(--muted); }
+#pub-show-more {
+  background: transparent; border: 1.5px solid var(--border);
+  color: var(--navy); padding: 8px 20px; border-radius: 8px;
+  font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+#pub-show-more:hover { border-color: var(--teal); background: var(--teal-light); }
+#pub-show-more:disabled { opacity: 0.4; cursor: default; }
+</style>
+</head>
+<body>
+
+
+<!-- ============================================================
+     NAVIGATION
+     ✏️  Edit: lab name (nav-logo text), nav link labels & hrefs,
+               CTA button text
+     ============================================================ -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="dot"></span>
+    Haselton Lab &nbsp;·&nbsp; Vanderbilt University   <!-- ← Edit lab name here -->
+  </a>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>      <!-- ← Edit link labels here -->
+    <li><a href="#team">Team</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#join">Join Us</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>  <!-- ← CTA button -->
+  </ul>
+</nav>
+
+
+<!-- ============================================================
+     HERO SECTION
+     ✏️  Edit: eyebrow badge text, headline (h1), subheading (p),
+               button labels, and the four feature cards (right side)
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-content">
+
+    <!-- Small badge above headline -->
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      Vanderbilt University BME   <!-- ← Edit badge text -->
+    </div>
+
+    <!-- Main headline — wrap words in <em> for italic teal style -->
+    <h1>Diagnostics for a<br><em>healthier world</em>,<br>everywhere.</h1>
+
+    <!-- Hero subheading paragraph -->
+    <p>We develop low-cost, accessible diagnostic tools and global health solutions — from the lab bench to communities around the world who need them most.</p>
+
+    <div class="hero-buttons">
+      <a href="#research" class="btn-primary">Explore our research →</a>
+      <a href="#join"     class="btn-secondary">Join the lab</a>
+    </div>
+
+  </div>
+
+  <!-- Right side: 4 feature cards -->
+  <div class="hero-visual">
+
+    <!-- Card 1 — ic-teal | ic-gold | ic-navy for different bg colors -->
+    <div class="hero-card">
+      <div class="hero-card-icon ic-teal">🔬</div>    <!-- ← Change emoji icon -->
+      <h4>Point-of-care diagnostics</h4>
+      <p>Rapid, field-deployable tests for low-resource settings worldwide.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="hero-card">
+      <div class="hero-card-icon ic-gold">🌍</div>
+      <h4>Global health equity</h4>
+      <p>Bridging the gap between cutting-edge technology and those who need it.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="hero-card">
+      <div class="hero-card-icon ic-navy">⚗️</div>
+      <h4>Biomarker discovery</h4>
+      <p>Identifying novel signals for disease detection and monitoring.</p>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="hero-card">
+      <div class="hero-card-icon ic-teal">🤝</div>
+      <h4>Community partnerships</h4>
+      <p>Co-designing solutions with the communities we serve.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     STATS STRIP
+     ✏️  Edit: the four numbers (stat-num) and labels (stat-label)
+               Add more .stat divs to show more stats (up to 6 looks good)
+     ============================================================ -->
+<div class="stats-strip">
+  <div class="stat">
+    <div class="stat-num">5+</div>
+    <div class="stat-label">Countries reached</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">190+</div>
+    <div class="stat-label">Published papers</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">$10B</div>
+    <div class="stat-label">Research funding</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">30+</div>
+    <div class="stat-label">Lab members & alumni</div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     RESEARCH SECTION
+     ✏️  Edit: section label, title, subtitle, and each research card.
+               Add/remove .research-card blocks as needed.
+               The grid auto-fills to 3 columns; add 3 or 6 cards total
+               for a clean layout. Change .tag text to your own keywords.
+     ============================================================ -->
+<section id="research">
+  <div class="section-label">What we do</div>
+  <h2 class="section-title">Our research areas</h2>
+  <p class="section-sub">From molecular assay design to field deployment, our work spans the full translational arc — always with the patient and community at the center.</p>
+
+  <div class="research-grid">
+
+    <div class="research-card">
+      <div class="research-card-num">01</div>
+      <h3>Point-of-care diagnostics</h3>
+      <p>We engineer paper microfluidic and lateral flow devices that bring hospital-grade sensitivity to village health posts, requiring no cold chain or electricity.</p>
+      <span class="tag">Microfluidics</span>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-num">02</div>
+      <h3>Infectious disease surveillance</h3>
+      <p>Developing multiplexed detection platforms for malaria, tuberculosis, and neglected tropical diseases with real-time data reporting capabilities.</p>
+      <span class="tag">Epidemiology</span>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-num">03</div>
+      <h3>Maternal & newborn health</h3>
+      <p>Creating simple bedside tools for obstetric complications in sub-Saharan Africa and South Asia, in partnership with local health ministries.</p>
+      <span class="tag">Global Health</span>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-num">04</div>
+      <h3>AI-assisted image analysis</h3>
+      <p>Training lightweight machine learning models to read diagnostic results from smartphone cameras, removing subjectivity from field interpretation.</p>
+      <span class="tag">Machine Learning</span>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-num">05</div>
+      <h3>Biomarker validation</h3>
+      <p>Translational studies linking novel protein and nucleic acid signatures to clinical outcomes in diverse patient populations across multiple continents.</p>
+      <span class="tag">Translational</span>
+    </div>
+
+    <div class="research-card">
+      <div class="research-card-num">06</div>
+      <h3>Health systems integration</h3>
+      <p>Working with ministries of health, NGOs, and community health workers to ensure our tools fit real-world clinical workflows and supply chains.</p>
+      <span class="tag">Implementation</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     MISSION SECTION
+     ✏️  Edit: the pull quote (mission-quote), the two body paragraphs,
+               and the four mission pill items in the navy panel.
+     ============================================================ -->
+<div class="mission-split">
+
+  <!-- Left: text -->
+  <div>
+    <div class="section-label">Our mission</div>
+    <!-- Pull quote — wrap key phrase in <span> for teal color -->
+    <p class="mission-quote">"Science only matters if it <span>reaches the people</span> who need it most."</p>
+    <p class="mission-body">At the Haselton Lab, we believe that brilliant engineering must be paired with deep community engagement. Our research begins and ends with a simple question: will this tool actually help someone, somewhere, today?</p>
+    <p class="mission-body">Rooted in Vanderbilt's tradition of excellence and driven by a passion for global equity, we're building the next generation of diagnostics — affordable, accurate, and accessible.</p>
+    <a href="#team" class="btn-primary" style="margin-top:0.5rem">Meet the team →</a>
+  </div>
+
+  <!-- Right: dark navy panel with four key facts -->
+  <div class="mission-visual">
+
+    <div class="mission-pill">
+      <div class="mission-pill-icon">🌐</div>
+      <div class="mission-pill-text">
+        <strong>Global reach</strong>
+        Active field studies in 12+ countries across Africa, Asia & Latin America
+      </div>
+    </div>
+
+    <div class="mission-pill">
+      <div class="mission-pill-icon">⚡</div>
+      <div class="mission-pill-text">
+        <strong>Speed to impact</strong>
+        From prototype to field validation in under 18 months
+      </div>
+    </div>
+
+    <div class="mission-pill">
+      <div class="mission-pill-icon">💡</div>
+      <div class="mission-pill-text">
+        <strong>Open science</strong>
+        Committed to open-access publishing and open-source device designs
+      </div>
+    </div>
+
+    <div class="mission-pill">
+      <div class="mission-pill-icon">🏫</div>
+      <div class="mission-pill-text">
+        <strong>Training the next generation</strong>
+        Mentoring 25+ graduate students, postdocs & undergraduates
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ============================================================
+     TEAM SECTION
+     ✏️  Edit: add/remove .team-card blocks for each person.
+               Change initials in .team-avatar, name, role, and bio.
+               Use av-navy | av-teal | av-gold for different avatar colors.
+               To use a real photo: see the CSS comment above for instructions.
+     ============================================================ -->
+<section id="team" class="team-section">
+  <div class="section-label">The people</div>
+  <h2 class="section-title">Our team</h2>
+  <p class="section-sub">A collaborative and dedicated group of engineers and scientists united by a shared mission.</p>
+
+  <div class="team-grid">
+
+    <!-- Principal Investigator -->
+    <div class="team-card">
+      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/haselton.jpg' alt="Dr. Dalton Nelson"
+        style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
+      <h4>Prof. Rick Haselton</h4>
+      <div class="role">Principal Investigator</div>
+      <p>BME faculty at Vanderbilt. Passionate about translational diagnostics and health equity worldwide.</p>
+    </div>
+
+    <!-- Team member 2 -->
+    <div class="team-card">
+      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/DJN_Headshot.jpeg' alt="Dr. Dalton Nelson"
+        style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
+      <h4>Dalton J. Nelson, PhD</h4>
+      <div class="role">Postdoctoral Fellow</div>
+      <p>Developing molecular diagnostics for improved access to advanced genetic testing.</p>
+    </div>
+
+    <!-- Team member 3 -->
+    <div class="team-card">
+      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/Spurlock.png' alt="Dr. Nick Spurlock"
+        style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
+      <h4>Nick Spurlock, PhD</h4>
+      <div class="role">Janitor</div>
+      <p>Modeling and designing next generation, adaptive PCR instrumentation.</p>
+    </div>
+
+    <!-- Team member 4 -->
+    <div class="team-card">
+      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/Evans.jpg' alt="David Evans"
+        style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
+      <h4>David Evans</h4>
+      <div class="role">PhD Candidate</div>
+      <p>Advancing point-of-care, low-cost platforms for pathogen detection and biosensing.</p>
+    </div>
+    
+    <!-- Team member 5 -->
+    <div class="team-card">
+      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/jang.jpeg' alt="Junghoon Jang"
+        style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
+      <h4>Junghoon Jang</h4>
+      <div class="role">Masters Student</div>
+      <p>Focusing on point-of-care sample processing and isothermal molecular diagnostics.</p>
+    </div>    
+    
+    <!-- Team member 6 -->
+    <div class="team-card">
+      <img src='/Users/daltonjaynelson/Documents/Research/Haselton Lab Website/files/Alex-Howard.jpg' alt="Alex Howard"
+        style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
+      <h4>Alex Howard</h4>
+      <div class="role">Undergraduate Student</div>
+      <p>Exploring innovative solutions for global health challenges through engineering.</p>
+    </div>
+    <!-- ✏️ Add more team members by copying a .team-card block here -->
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     VIDEO GALLERY SECTION
+     ✏️  HOW TO EMBED A YOUTUBE VIDEO:
+         1. Go to the YouTube video
+         2. Click Share → Embed
+         3. Copy the src URL (looks like: https://www.youtube.com/embed/VIDEO_ID)
+         4. Paste it into the iframe src below
+
+     ✏️  HOW TO EMBED A GOOGLE DRIVE VIDEO:
+         1. Upload your video to Google Drive
+         2. Right-click the file → Share → change to "Anyone with the link"
+         3. Open the file, click the ⋮ menu → Open in new window
+         4. In the address bar, copy the FILE_ID from the URL:
+            https://drive.google.com/file/d/FILE_ID/view
+         5. Build the embed URL:
+            https://drive.google.com/file/d/FILE_ID/preview
+         6. Paste into the iframe src below
+
+     ✏️  To make a video full-width, add class="video-card featured"
+     ✏️  To add more videos, copy a .video-card block
+     ============================================================ -->
+<section id="videos" class="video-section">
+  <div class="section-label">Lab in action</div>
+  <h2 class="section-title">Videos</h2>
+  <p class="section-sub">Watch our research in action — from bench-top demonstrations to field deployments around the world.</p>
+
+  <div class="video-grid">
+
+    <!-- FEATURED full-width video — replace src with your YouTube or Google Drive embed URL -->
+    <div class="video-card featured">
+      <div class="video-embed-wrapper">
+        <!-- ✏️ YOUTUBE EXAMPLE — replace VIDEO_ID with your real YouTube video ID -->
+        <iframe
+          src="https://youtu.be/PlQfjy_D3vk"
+          title="Lab overview video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <!-- ✏️ GOOGLE DRIVE EXAMPLE — uncomment and replace FILE_ID:
+        <iframe
+          src="https://drive.google.com/file/d/FILE_ID/preview"
+          title="Lab overview video"
+          allow="autoplay"
+          allowfullscreen>
+        </iframe> -->
+      </div>
+      <div class="video-card-meta">
+        <h4>Haselton Lab Overview</h4>  <!-- ✏️ Edit video title -->
+        <p>An introduction to our lab's mission, team, and research on accessible diagnostics for global health.</p>
+        <span class="tag">Featured</span>
+      </div>
+    </div>
+
+    <!-- Video 2 — replace src with your YouTube or Google Drive embed URL -->
+    <div class="video-card">
+      <div class="video-embed-wrapper">
+        <!-- ✏️ Replace VIDEO_ID below -->
+        <iframe
+          src="https://youtu.be/IfAmpGyhX8I"
+          title="VU BME Department Overview"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="video-card-meta">
+        <h4>VU BME Department Overview</h4>
+        <p>Check out our department's people, mission, and research focus.</p>
+        <span class="tag">Research</span>
+      </div>
+    </div>
+
+    <!-- Video 3 — replace src with your YouTube or Google Drive embed URL -->
+    <div class="video-card">
+      <div class="video-embed-wrapper">
+        <!-- ✏️ Replace VIDEO_ID below, or use a Google Drive preview URL -->
+        <iframe
+          src="https://youtu.be/VukzUiiu_rA"
+          title="NSF I-Corps Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="video-card-meta">
+        <h4>Haselton Lab and Jay Biolabs: NSF National I-Corps</h4>
+        <p>Learn about our NSF I-Corps team and their journey from lab to market.</p>
+        <span class="tag">Entrepreneurship</span>
+      </div>
+    </div>
+
+    <!-- ✏️ Add more videos by copying a .video-card block above -->
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PUBLICATIONS — AUTO-LOADED FROM PUBMED
+     ✏️  HOW TO UPDATE YOUR PUBMED AUTHOR NAME:
+         Find the line below that says:  authorName = "Haselton FR"
+         Change it to match how your name appears on PubMed.
+         PubMed format is: LastName Initials  (e.g. "Smith JA")
+         You can verify by searching https://pubmed.ncbi.nlm.nih.gov/?term=Haselton+FR
+
+     ✏️  HOW IT WORKS:
+         When a visitor loads the page, it automatically calls the free
+         NCBI E-utilities API and fetches your latest publications.
+         No manual updates needed — new papers appear automatically
+         within ~24hrs of appearing on PubMed.
+
+     ✏️  SHOW MORE / FEWER:
+         Change  initialShow = 5  to show more or fewer papers by default.
+         The "Show more" button loads 5 at a time after that.
+     ============================================================ -->
+<section id="publications" class="pubs-section">
+  <div class="section-label">Latest work</div>
+  <h2 class="section-title">Publications</h2>
+  <p class="section-sub">Our peer-reviewed research, loaded automatically from PubMed. New papers appear here within 24 hours of indexing.</p>
+
+  <div class="pub-controls">
+    <span class="pub-count-label" id="pub-count-label"></span>
+    <button id="pub-show-more" style="display:none">Show more publications ↓</button>
+  </div>
+
+  <div id="pub-loading">
+    <div class="spinner"></div>
+    Loading publications from PubMed…
+  </div>
+  <div id="pub-error">
+    ⚠️ Could not load publications. <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Haselton+FR" target="_blank" style="color:var(--teal)">View on PubMed directly →</a>
+  </div>
+  <div class="pub-list" id="pub-list"></div>
+</section>
+
+<script>
+// ============================================================
+//  PUBMED AUTO-LOADER
+//  ✏️  Edit these two lines to customize:
+// ============================================================
+const authorName  = "Haselton FR";   // ← Your PubMed author name (LastName Initials)
+const initialShow = 5;               // ← How many papers to show before "Show more"
+// ============================================================
+
+const NCBI_BASE   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
+const PUBMED_LINK = `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(authorName)}&sort=date`;
+
+let allPubs    = [];
+let shownCount = 0;
+
+// Fetch PubMed IDs for the author, sorted by date (most recent first)
+async function loadPubMed() {
+  try {
+    // Step 1: search for paper IDs
+    const searchURL = `${NCBI_BASE}esearch.fcgi?db=pubmed&term=${encodeURIComponent(authorName + "[Author]")}&retmax=100&sort=pub+date&retmode=json`;
+    const searchRes = await fetch(searchURL);
+    if (!searchRes.ok) throw new Error("Search failed");
+    const searchData = await searchRes.json();
+    const ids = searchData.esearchresult?.idlist || [];
+
+    if (ids.length === 0) {
+      showError();
+      return;
+    }
+
+    // Step 2: fetch details for those IDs
+    const summaryURL = `${NCBI_BASE}esummary.fcgi?db=pubmed&id=${ids.join(",")}&retmode=json`;
+    const summaryRes = await fetch(summaryURL);
+    if (!summaryRes.ok) throw new Error("Summary failed");
+    const summaryData = await summaryRes.json();
+
+    allPubs = ids.map(id => summaryData.result[id]).filter(Boolean);
+
+    document.getElementById("pub-loading").style.display = "none";
+    document.getElementById("pub-count-label").textContent =
+      `${allPubs.length} publication${allPubs.length !== 1 ? "s" : ""} found on PubMed`;
+
+    renderPubs(initialShow);
+
+    if (allPubs.length > initialShow) {
+      const btn = document.getElementById("pub-show-more");
+      btn.style.display = "inline-block";
+      btn.addEventListener("click", () => {
+        renderPubs(shownCount + 5);
+        if (shownCount >= allPubs.length) btn.disabled = true;
+      });
+    }
+  } catch (err) {
+    console.error("PubMed error:", err);
+    showError();
+  }
+}
+
+function renderPubs(upTo) {
+  const list  = document.getElementById("pub-list");
+  const slice = allPubs.slice(shownCount, upTo);
+
+  slice.forEach((pub, i) => {
+    const title    = pub.title || "Untitled";
+    const journal  = pub.source || "";
+    const year     = (pub.pubdate || "").slice(0, 4);
+    const authors  = formatAuthors(pub.authors || []);
+    const pmid     = pub.uid;
+    const doi      = pub.elocationid?.replace("doi: ", "") || "";
+    const isFirst  = shownCount === 0 && i === 0;  // badge the newest paper
+
+    const card = document.createElement("div");
+    card.className = "pub-card";
+    card.innerHTML = `
+      <div class="pub-year">${year || "—"}</div>
+      <div class="pub-content">
+        <h4>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/${pmid}/" target="_blank"
+            style="color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(0,0,0,0.2);">
+            ${title}
+          </a>
+        </h4>
+        <p>${authors}${journal ? " · <em>" + journal + "</em>" : ""}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+          ${isFirst ? '<span class="pub-badge recent">Latest</span>' : ""}
+          <a class="pubmed-badge" href="https://pubmed.ncbi.nlm.nih.gov/${pmid}/" target="_blank">
+            🔗 PubMed
+          </a>
+          ${doi ? `<a class="pubmed-badge" href="https://doi.org/${doi}" target="_blank" style="background:#e8f5e9;color:#2e7d32;">📄 DOI</a>` : ""}
+        </div>
+      </div>`;
+    list.appendChild(card);
+  });
+
+  shownCount = upTo;
+}
+
+function formatAuthors(authors) {
+  if (!authors.length) return "";
+  const names = authors.slice(0, 5).map(a => a.name || "").filter(Boolean);
+  return names.join(", ") + (authors.length > 5 ? " et al." : "");
+}
+
+function showError() {
+  document.getElementById("pub-loading").style.display = "none";
+  document.getElementById("pub-error").style.display   = "block";
+}
+
+// Run on page load
+loadPubMed();
+</script>
+
+
+<!-- ============================================================
+     JOIN US SECTION
+     ✏️  Edit: intro paragraph (join-body), and each join-option block.
+               Add/remove .join-option blocks for different positions.
+     ============================================================ -->
+<section id="join" class="join-section">
+
+  <div>
+    <div class="section-label">Work with us</div>
+    <h2 class="section-title">Join our lab</h2>
+    <p class="join-body">We're always looking for motivated, curious people who want to engineer solutions that matter. Whether you're an undergraduate looking for your first research experience or an established scientist considering a postdoc — we'd love to hear from you.</p>
+    <a href="#contact" class="btn-primary">Get in touch →</a>
+  </div>
+
+  <div class="join-options">
+
+    <div class="join-option">
+      <div class="join-option-dot"></div>
+      <div class="join-option-text">
+        <h5>PhD students</h5>
+        <p>Apply through Vanderbilt's BME PhD program. Reach out early — we accept students with backgrounds in biomedical engineering, chemistry, and global health.</p>
+      </div>
+    </div>
+
+    <div class="join-option">
+      <div class="join-option-dot"></div>
+      <div class="join-option-text">
+        <h5>Postdoctoral fellows</h5>
+        <p>We have openings for postdocs with expertise in microfluidics, biosensing, or implementation science. NIH F-award support available.</p>
+      </div>
+    </div>
+
+    <div class="join-option">
+      <div class="join-option-dot"></div>
+      <div class="join-option-text">
+        <h5>Undergraduate researchers</h5>
+        <p>Vanderbilt undergrads are welcome to apply for semester and summer research positions. No prior lab experience required — just curiosity.</p>
+      </div>
+    </div>
+
+    <div class="join-option">
+      <div class="join-option-dot"></div>
+      <div class="join-option-text">
+        <h5>Industry & NGO partners</h5>
+        <p>We collaborate with global health organizations, diagnostic companies, and foundations to accelerate deployment of our technologies.</p>
+      </div>
+    </div>
+
+    <!-- ✏️ Add more join options by copying a .join-option block here -->
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT SECTION
+     ✏️  Edit: address, email, department info.
+               Update the form's action if using Formspree/Netlify.
+               Add/remove dropdown options in the <select> element.
+     ============================================================ -->
+<section id="contact" class="contact-section">
+  <div class="section-label">Say hello</div>
+  <h2 class="section-title">Contact us</h2>
+  <p class="section-sub">Whether you're a student, collaborator, journalist, or community partner — our door is always open.</p>
+
+  <div class="contact-grid">
+
+    <!-- Left: contact details -->
+    <div>
+      <p style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;">
+        We're located in the Vanderbilt University School of Engineering in Nashville, Tennessee. We love hearing from prospective students, partners, and anyone passionate about global health.
+      </p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-text">
+          <strong>Address</strong>
+          2301 Vanderbilt Place, PMB 351826<br>Nashville, TN 37235   <!-- ← Edit address -->
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        <div class="contact-detail-text">
+          <strong>Email</strong>
+          rick.haselton@vanderbilt.edu   <!-- ← Edit email -->
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🏫</div>
+        <div class="contact-detail-text">
+          <strong>Department</strong>
+          Biomedical Engineering<br>Vanderbilt University   <!-- ← Edit dept -->
+        </div>
+      </div>
+
+      <!-- Map placeholder — see CSS comment above to swap for a real Google Maps embed -->
+      <div class="map-placeholder">📍 Vanderbilt University — Nashville, TN</div>
+    </div>
+
+    <!-- Right: contact form -->
+    <!-- To make this form send emails, see note in CSS above -->
+    <div class="contact-form">
+      <div class="form-row-2">
+        <div class="form-row">
+          <label>First name</label>
+          <input type="text" placeholder="Jane">
+        </div>
+        <div class="form-row">
+          <label>Last name</label>
+          <input type="text" placeholder="Smith">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Email</label>
+        <input type="email" placeholder="jane@example.com">
+      </div>
+      <div class="form-row">
+        <label>I am a…</label>
+        <select>
+          <!-- ✏️ Add/remove dropdown options here -->
+          <option>Prospective PhD student</option>
+          <option>Postdoctoral candidate</option>
+          <option>Undergraduate student</option>
+          <option>Industry / NGO partner</option>
+          <option>Journalist / media</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Message</label>
+        <textarea placeholder="Tell us a bit about yourself and why you're reaching out…"></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;">Send message →</button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ✏️  Edit: lab name, footer links, and copyright year
+     ============================================================ -->
+<footer>
+  <div class="footer-logo">Haselton Lab · Vanderbilt University BME</div>
+  <div class="footer-links">
+    <a href="#research">Research</a>
+    <a href="#team">Team</a>
+    <a href="#videos">Videos</a>
+    <a href="#publications">Publications</a>
+    <a href="#join">Join Us</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-meta">© 2025 Diagnostics & Global Health Laboratory</div>
+</footer>
+
+
+</body>
+</html>
