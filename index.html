@@ -85,6 +85,14 @@ nav {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--gold); flex-shrink: 0;
 }
+/* Nav logo image — sits left of the lab name in the nav bar */
+.nav-logo-img {
+  height: 64px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
 /* Nav links — add/remove <li> items in the HTML below */
 .nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a {
@@ -105,10 +113,11 @@ nav {
    ============================================================ */
 .hero {
   min-height: 90vh;
-  display: grid; grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 6rem 5% 5rem;
-  gap: 4rem;
+  padding: 5rem 5% 5rem;
+  gap: 2.5rem;
   position: relative; overflow: hidden;
 }
 .hero::before {
@@ -116,6 +125,26 @@ nav {
   position: absolute; inset: 0;
   background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(207,170,90,0.10) 0%, transparent 70%);
   pointer-events: none;
+}
+/* Logo row — centered above everything */
+.hero-logo-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.hero-logo {
+  height: 440px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+/* Content + cards row — side by side below the logo */
+.hero-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  width: 100%;
 }
 /* Small badge above the main headline */
 .hero-eyebrow {
@@ -362,40 +391,31 @@ section { padding: 6rem 5%; }
    JOIN US SECTION
    ============================================================ */
 
-/* Lab group photo — sits above the join-section navy block */
-.lab-photo-banner {
-  width: 100%;
-  max-height: 480px;
-  overflow: hidden;
-  position: relative;
-  background: var(--navy);
+/* Lab group photo — compact rounded box */
+.lab-photo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 5% 0;
+  background: var(--cream);
 }
-.lab-photo-banner img {
+.lab-photo-box img {
   width: 100%;
-  height: 100%;
-  max-height: 480px;
+  max-width: 860px;
+  height: 420px;
   object-fit: cover;
-  object-position: center 30%; /* ✏️ adjust vertical crop: "center top" / "center center" / "center 40%" */
+  object-position: center 30%; /* ✏️ adjust crop: "center top" / "center center" / "center 40%" */
+  border-radius: 20px;
   display: block;
-  transition: transform 6s ease;
+  box-shadow: 0 8px 32px rgba(26,39,68,0.12);
 }
-.lab-photo-banner:hover img { transform: scale(1.02); }
-.lab-photo-banner .lab-photo-caption {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.55));
-  color: rgba(255,255,255,0.85);
-  font-size: 13px; padding: 2rem 5% 1rem;
+.lab-photo-box .lab-photo-caption {
+  margin-top: 0.75rem;
+  font-size: 13px;
+  color: var(--muted);
   font-family: var(--font-sans);
+  text-align: center;
 }
-
-/* Placeholder shown when no photo is uploaded yet */
-.lab-photo-placeholder {
-  width: 100%; height: 220px;
-  background: var(--navy);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
-  color: rgba(255,255,255,0.4); font-size: 14px; font-family: var(--font-sans);
-}
-.lab-photo-placeholder .ph-icon { font-size: 2.5rem; }
 
 .join-section {
   background: var(--navy);
@@ -587,7 +607,10 @@ footer {
      ============================================================ -->
 <nav>
   <a class="nav-logo" href="#">
-    <span class="dot"></span>
+    <!-- ✏️ NAV LOGO: replace "photos/logo.png" with your logo filename.
+         Displays at 32px tall — use a PNG with transparent background.
+         To revert to the gold dot, replace with: <span class="dot"></span> -->
+    <img src="photos/haselton_logo.png" alt="Haselton Lab logo" class="nav-logo-img">
     Haselton Lab &nbsp;·&nbsp; Vanderbilt University   <!-- ← Edit lab name here -->
   </a>
   <ul class="nav-links">
@@ -607,6 +630,18 @@ footer {
                button labels, and the four feature cards (right side)
      ============================================================ -->
 <section class="hero">
+
+  <!-- ✏️ HERO LOGO: centered above the headline and cards.
+       Replace "photos/haselton_logo.png" with your actual logo filename.
+       Adjust height in .hero-logo CSS (currently 100px) to resize.
+       Remove this entire block if you don't want a logo here. -->
+  <div class="hero-logo-row">
+    <img src="photos/haselton_logo.png" alt="Haselton Lab logo" class="hero-logo">
+  </div>
+
+  <!-- Text + cards side by side -->
+  <div class="hero-body">
+
   <div class="hero-content">
 
     <!-- Small badge above headline -->
@@ -660,6 +695,9 @@ footer {
     </div>
 
   </div>
+
+  </div><!-- end hero-body -->
+
 </section>
 
 
@@ -698,55 +736,54 @@ footer {
 <section id="research">
   <div class="section-label">What we do</div>
   <h2 class="section-title">Our research areas</h2>
-  <p class="section-sub">From molecular assay design to field deployment, our work spans the full translational arc — always with the patient and community at the center.</p>
+  <p class="section-sub">We build diagnostics that work where they're needed most — no cold chain, no lab infrastructure, no compromises on accuracy.</p>
 
   <div class="research-grid">
 
     <div class="research-card">
       <div class="research-card-num">01</div>
-      <h3>Point-of-care diagnostics</h3>
-      <p>We engineer paper microfluidic and lateral flow devices that bring hospital-grade sensitivity to village health posts, requiring no cold chain or electricity.</p>
-      <span class="tag">Microfluidics</span>
+      <h3>Adaptive PCR</h3>
+      <p>PCR machines fail in the field because they blindly follow fixed temperature programs. We use mirror-image L-DNA to optically monitor primer annealing and product melting in real time, letting the instrument react to what's actually happening. First described by <a href="https://doi.org/10.1021/acs.analchem.6b03291" target="_blank" style="color:var(--teal)">Adams et al. in 2017</a>, the approach has since been miniaturized to hit a <a href="https://doi.org/10.3390/bios15040258" target="_blank" style="color:var(--teal)">15-minute PCR benchmark</a> using laser heating.</p>
+      <span class="tag">Molecular Diagnostics</span>
     </div>
 
     <div class="research-card">
       <div class="research-card-num">02</div>
-      <h3>Infectious disease surveillance</h3>
-      <p>Developing multiplexed detection platforms for malaria, tuberculosis, and neglected tropical diseases with real-time data reporting capabilities.</p>
-      <span class="tag">Epidemiology</span>
+      <h3>L-DNA as a Molecular Mirror</h3>
+      <p>L-DNA is chemically identical to natural DNA but biologically inert — it can shadow PCR reactions without disrupting them. Beyond cycle control, we use L-DNA to <a href="https://doi.org/10.1021/acs.analchem.4c01611" target="_blank" style="color:var(--teal)">validate amplification products within the same sample</a>, build logic circuits that separate true signal from background leakage, and prototype non-enzymatic amplification systems.</p>
+      <span class="tag">Biosensors</span>
     </div>
 
     <div class="research-card">
       <div class="research-card-num">03</div>
-      <h3>Maternal & newborn health</h3>
-      <p>Creating simple bedside tools for obstetric complications in sub-Saharan Africa and South Asia, in partnership with local health ministries.</p>
+      <h3>SNP Detection Without Sequencing</h3>
+      <p>Sequencing is too expensive and infrastructure-heavy for most of the world. We develop oligonucleotide ligation assays and melt-based screens that identify clinically important single-nucleotide variants at the point of care. Targets include <a href="https://doi.org/10.1021/acs.analchem.1c05040" target="_blank" style="color:var(--teal)">HIV drug resistance mutations</a>, antimalarial resistance markers, SARS-CoV-2 variants, and TB rifampicin susceptibility.</p>
       <span class="tag">Global Health</span>
     </div>
 
     <div class="research-card">
       <div class="research-card-num">04</div>
-      <h3>AI-assisted image analysis</h3>
-      <p>Training lightweight machine learning models to read diagnostic results from smartphone cameras, removing subjectivity from field interpretation.</p>
-      <span class="tag">Machine Learning</span>
+      <h3>Field-Ready Sample Processing</h3>
+      <p>Extraction is the step that most often breaks in the field. We strip it down to what's necessary — magnetic beads, a transfer pipette, steel wool, and a magnet. Our <a href="https://doi.org/10.1021/acsami.9b21564" target="_blank" style="color:var(--teal)">high-gradient magnetic separation method</a> pulls TB DNA from up to 200 mL of urine or sputum with no commercial kit, no electricity, and no cold chain.</p>
+      <span class="tag">Sample Processing</span>
     </div>
 
     <div class="research-card">
       <div class="research-card-num">05</div>
-      <h3>Biomarker validation</h3>
-      <p>Translational studies linking novel protein and nucleic acid signatures to clinical outcomes in diverse patient populations across multiple continents.</p>
-      <span class="tag">Translational</span>
+      <h3>Coffee Ring & Evaporative Diagnostics</h3>
+      <p>When a drop evaporates on a flat surface, particles naturally concentrate at the edge — the coffee ring effect. We exploit this physics to make biomarkers visible to the naked eye without any active instrument. The platform detects the malaria biomarker PfHRP-II and has been extended to TB, with the <a href="https://doi.org/10.1021/la203903a" target="_blank" style="color:var(--teal)">original design</a> demonstrated on glass slides requiring no electricity or refrigeration.</p>
+      <span class="tag">Microfluidics</span>
     </div>
 
-    <div class="research-card">
+   <div class="research-card">
       <div class="research-card-num">06</div>
-      <h3>Health systems integration</h3>
-      <p>Working with ministries of health, NGOs, and community health workers to ensure our tools fit real-world clinical workflows and supply chains.</p>
-      <span class="tag">Implementation</span>
+      <h3>Point-of-Care Biosensing Platforms</h3>
+      <p>We apply the same low-resource design principles to a range of clinical targets: a <a href="https://doi.org/10.3390/bios12100819" target="_blank" style="color:var(--teal)">microneedle patch that captures Lyme disease spirochetes directly from skin</a>, a cell phone-coupled paper device for ovarian cancer monitoring in urine, smartphone spectroscopy for field-based biosensing, and lateral flow assay enhancement using metal affinity reagents.</p>
+      <span class="tag">Point-of-Care</span>
     </div>
 
   </div>
 </section>
-
 
 <!-- ============================================================
      MISSION SECTION
@@ -1134,20 +1171,17 @@ loadPubMed();
          5. Once photo is added, delete the .lab-photo-placeholder div
             and uncomment the <img> block
      ============================================================ -->
-<div class="lab-photo-banner">
-
-  <!-- ✏️ UNCOMMENT THIS BLOCK and delete the placeholder below once you have a photo:
-  <img src="photos/lab-group.jpg" alt="Haselton Lab group photo">
-  <div class="lab-photo-caption">The Haselton Lab — Vanderbilt University, 2025</div>
-  -->
-
-  <!-- DELETE this placeholder once your photo is added -->
-  <div class="lab-photo-placeholder">
-    <span class="ph-icon">📷</span>
-    <span>Add your lab group photo here — see the HTML comment above for instructions</span>
-  </div>
-
+<!-- ============================================================
+     LAB GROUP PHOTO
+     ✏️  Replace "photos/lab_at_BMES.jpg" with your actual filename.
+         Adjust object-position in the CSS above to control the crop.
+         Update the caption text below.
+     ============================================================ -->
+<div class="lab-photo-box">
+  <img src="photos/lab_at_BMES.jpeg" alt="Haselton Lab group photo">
+  <p class="lab-photo-caption">The Haselton Lab at BMES 2023 in Seattle, WA.</p>
 </div>
+
 
 <!-- ============================================================
      JOIN US SECTION
