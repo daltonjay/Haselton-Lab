@@ -287,11 +287,56 @@ section { padding: 6rem 5%; }
 }
 .research-card h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
 .research-card p  { font-size: 14px; color: var(--muted); line-height: 1.65; }
+.research-more { display:block; margin-top:1rem; font-size:13px; font-weight:600; color:var(--navy); text-decoration:none; }
+.research-more:hover { color:var(--gold-dark); }
 .tag {
   display: inline-block; margin-top: 1rem;
   font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
   color: var(--teal); background: var(--teal-light);
   padding: 4px 10px; border-radius: 50px;
+}
+
+
+
+
+/* ============================================================
+   FULL-PAGE SCROLL-RESPONSIVE DNA HELIX — RIGHT RAIL
+   Fixed to the right side of the viewport and driven by total page scroll.
+   ============================================================ */
+.dna-scroll-layer {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  bottom: 0;
+  width: clamp(170px, 18vw, 300px);
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.46;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 93%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 93%, transparent 100%);
+}
+#dna-helix-canvas { width: 100%; height: 100%; display: block; }
+
+/* Keep the DNA behind page content while allowing it to remain visible
+   through the section backgrounds. Cards and text sit above this layer. */
+section > *,
+.mission-split > *,
+.stats-strip > *,
+.lab-photo-box > *,
+footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .dna-scroll-layer { width: 125px; opacity: 0.27; }
+}
+@media (max-width: 600px) {
+  .dna-scroll-layer { width: 88px; opacity: 0.20; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dna-scroll-layer { opacity: 0.22; }
 }
 
 
@@ -356,8 +401,8 @@ section { padding: 6rem 5%; }
 .av-teal { background: var(--teal); }
 .av-gold { background: var(--gold-dark); }
 .team-card h4   { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
-.team-card .role{ font-size: 12.5px; color: var(--teal); font-weight: 500; margin-bottom: 6px; }
-.team-card p    { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.team-card .role{ font-size: 15px; color: var(--teal); font-weight: 500; margin-bottom: 6px; }
+.team-card p    { font-size: 15px; color: var(--muted); line-height: 1.5; }
 
 
 /* ============================================================
@@ -597,6 +642,109 @@ footer {
 }
 #pub-show-more:hover { border-color: var(--teal); background: var(--teal-light); }
 #pub-show-more:disabled { opacity: 0.4; cursor: default; }
+
+/* Personnel layout update */
+.team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.team-card { text-align:left; display:grid; grid-template-columns:minmax(0,1fr) 132px; grid-template-areas:"name photo" "role photo" "bio photo" ". linkedin"; column-gap:1.5rem; align-items:center; }
+.team-card img { grid-area:photo; width:132px !important; height:132px !important; border-radius:50% !important; object-fit:cover; margin:0 !important; display:block; }
+.team-card h4 { grid-area:name; align-self:end; font-size:23px; line-height:1.22; margin-bottom:5px; }
+.team-card .role { grid-area:role; align-self:start; }
+.team-card .linkedin-btn {
+  grid-area:linkedin;
+  justify-self:center;
+  display:inline-flex; align-items:center; gap:7px;
+  margin-top:7px; padding:5px 9px; border-radius:7px;
+  background:rgba(207,170,90,0.10); color:var(--gold-dark); text-decoration:none;
+  border:1px solid rgba(140,109,42,0.24);
+  font-size:11.5px; font-weight:600; line-height:1;
+  transition:transform .15s, background .2s, border-color .2s;
+}
+.team-card .linkedin-btn:hover { transform:translateY(-1px); background:rgba(207,170,90,0.18); border-color:rgba(140,109,42,0.42); }
+
+.team-card p { grid-area:bio; align-self:start; }
+.lab-alumni { margin-top:4rem; padding-top:3rem; border-top:1px solid var(--border); }
+.alumni-list { list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 28px; margin-top:1.5rem; }
+.alumni-list li { padding:10px 0; border-bottom:1px solid var(--border); font-size:14px; color:var(--muted); }
+.alumni-list li::before { content:"—"; color:var(--gold); margin-right:9px; }
+@media(max-width:900px){.team-grid{grid-template-columns:1fr}.alumni-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.team-card{grid-template-columns:minmax(0,1fr) 100px;column-gap:1rem}.team-card img{width:100px !important;height:100px !important}.alumni-list{grid-template-columns:1fr}}
+
+/* Hero image feature cards — three rounded images in the former feature-card area */
+.hero-image-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, minmax(145px, 1fr));
+  gap: 14px;
+  min-height: 330px;
+}
+.hero-image-card {
+  position: relative;
+  min-height: 145px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--gold-light), #e7dfcf);
+  box-shadow: 0 5px 18px rgba(26,39,68,0.08);
+}
+.hero-image-card-wide { grid-column: 1 / -1; }
+.hero-image-card img {
+  width: 100%; height: 100%; display: block; object-fit: cover;
+}
+.hero-image-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.10) 58%, transparent 78%);
+  pointer-events: none;
+}
+.hero-image-title {
+  position: absolute; left: 18px; right: 18px; bottom: 15px; z-index: 1;
+  color: white; font-family: var(--font-serif); font-size: 18px; font-weight: 600;
+  line-height: 1.2; text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+}
+.hero-image-card:hover img { transform: scale(1.025); }
+.hero-image-card img { transition: transform .35s ease; }
+@media (max-width: 600px) {
+  .hero-image-grid { grid-template-columns: 1fr; grid-template-rows: repeat(3, 160px); min-height: 0; }
+  .hero-image-card-wide { grid-column: auto; }
+}
+
+/* Hero composition: large logo + text row, followed by three image panels */
+.hero { min-height: 0; padding: 3.25rem 5% 1.5rem; gap: 1.75rem; }
+.hero-logo-row { display: none; }
+.hero-body { display: flex; flex-direction: column; gap: 1.75rem; width: 100%; }
+.hero-top {
+  display: grid;
+  grid-template-columns: minmax(360px, 1.1fr) minmax(300px, .9fr);
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: center;
+  width: 100%;
+}
+.hero-logo-panel { display:flex; align-items:center; justify-content:center; min-height:300px; transform:translateX(-4%); }
+.hero-main-logo { width:min(108%, 550px); height:auto; max-height:420px; object-fit:contain; display:block; }
+.hero-content { display:flex; flex-direction:column; align-items:flex-start; }
+.hero-eyebrow { margin-bottom:1.4rem; }
+.hero h1 { margin-bottom:1.7rem; }
+.hero-image-grid {
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  grid-template-rows:clamp(220px, 25vw, 330px);
+  gap:18px;
+  width:100%;
+  min-height:0;
+}
+.hero-image-card, .hero-image-card-wide { grid-column:auto; min-height:220px; border-radius:18px; }
+@media (max-width: 900px) {
+  .hero-top { grid-template-columns:1fr 1fr; gap:2rem; }
+  .hero-logo-panel { min-height:240px; transform:translateX(-2%); }
+  .hero-main-logo { max-height:305px; }
+  .hero-image-grid { grid-template-columns:1fr; grid-template-rows:repeat(3, 210px); }
+}
+@media (max-width: 650px) {
+  .hero { padding:2.5rem 5% 1.25rem; }
+  .hero-top { grid-template-columns:1fr; gap:1.5rem; }
+  .hero-logo-panel { min-height:0; justify-content:center; transform:none; }
+  .hero-main-logo { width:min(88%, 390px); max-height:250px; }
+  .hero-image-grid { grid-template-rows:repeat(3, 190px); }
+}
+
 </style>
 </head>
 <body>
@@ -633,72 +781,43 @@ footer {
      ============================================================ -->
 <section class="hero">
 
-  <!-- ✏️ HERO LOGO: centered above the headline and cards.
-       Replace "photos/haselton_logo.png" with your actual logo filename.
-       Adjust height in .hero-logo CSS (currently 100px) to resize.
-       Remove this entire block if you don't want a logo here. -->
-  <div class="hero-logo-row">
-    <img src="photos/haselton_logo.png" alt="Haselton Lab logo" class="hero-logo">
-  </div>
-
-  <!-- Text + cards side by side -->
+  <!-- Upper hero row: large lab logo on the left, text and CTA on the right -->
   <div class="hero-body">
+    <div class="hero-top">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="pulse"></span>
+          Vanderbilt University Biomedical Engineering
+        </div>
 
-  <div class="hero-content">
+        <h1>Diagnostics for a<br><em>healthier world</em>,<br>everywhere.</h1>
 
-    <!-- Small badge above headline -->
-    <div class="hero-eyebrow">
-      <span class="pulse"></span>
-      Vanderbilt University BME   <!-- ← Edit badge text -->
+        <div class="hero-buttons">
+          <a href="#research" class="btn-primary">Explore our research →</a>
+        </div>
+      </div>
+
+      <div class="hero-logo-panel">
+        <img src="photos/haselton_logo.png" alt="Haselton Lab logo" class="hero-main-logo">
+      </div>
     </div>
 
-    <!-- Main headline — wrap words in <em> for italic teal style -->
-    <h1>Diagnostics for a<br><em>healthier world</em>,<br>everywhere.</h1>
-
-    <!-- Hero subheading paragraph -->
-    <p>We develop low-cost, accessible diagnostic tools and global health solutions — from the lab bench to communities around the world who need them most.</p>
-
-    <div class="hero-buttons">
-      <a href="#research" class="btn-primary">Explore our research →</a>
-      <a href="#join"     class="btn-secondary">Join the lab</a>
+    <!-- Three image features, side by side beneath the logo/text row. -->
+    <div class="hero-visual hero-image-grid">
+      <div class="hero-image-card">
+        <img src="photos/hero-feature-1.jpg" alt="Research in the Haselton Lab">
+        <div class="hero-image-title">Molecular Diagnostics</div>
+      </div>
+      <div class="hero-image-card">
+        <img src="photos/hero-feature-2.jpg" alt="Global health research">
+        <div class="hero-image-title">Global Health</div>
+      </div>
+      <div class="hero-image-card">
+        <img src="photos/hero-feature-3.jpg" alt="Haselton Lab technology and translation">
+        <div class="hero-image-title">Technology in Action</div>
+      </div>
     </div>
-
   </div>
-
-  <!-- Right side: 4 feature cards -->
-  <div class="hero-visual">
-
-    <!-- Card 1 — ic-teal | ic-gold | ic-navy for different bg colors -->
-    <div class="hero-card">
-      <div class="hero-card-icon ic-teal">🔬</div>    <!-- ← Change emoji icon -->
-      <h4>Point-of-care diagnostics</h4>
-      <p>Rapid, field-deployable tests for low-resource settings worldwide.</p>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="hero-card">
-      <div class="hero-card-icon ic-gold">🌍</div>
-      <h4>Global health equity</h4>
-      <p>Bridging the gap between cutting-edge technology and those who need it.</p>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="hero-card">
-      <div class="hero-card-icon ic-navy">⚗️</div>
-      <h4>Biomarker discovery</h4>
-      <p>Identifying novel signals for disease detection and monitoring.</p>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="hero-card">
-      <div class="hero-card-icon ic-teal">🤝</div>
-      <h4>Community partnerships</h4>
-      <p>Co-designing solutions with the communities we serve.</p>
-    </div>
-
-  </div>
-
-  </div><!-- end hero-body -->
 
 </section>
 
@@ -735,6 +854,11 @@ footer {
                The grid auto-fills to 3 columns; add 3 or 6 cards total
                for a clean layout. Change .tag text to your own keywords.
      ============================================================ -->
+<!-- Decorative DNA helix: fixed behind the main content and responsive to full-page scrolling -->
+<div class="dna-scroll-layer" aria-hidden="true">
+  <canvas id="dna-helix-canvas"></canvas>
+</div>
+
 <section id="research">
   <div class="section-label">What we do</div>
   <h2 class="section-title">Our research areas</h2>
@@ -747,6 +871,7 @@ footer {
       <h3>Adaptive PCR</h3>
       <p>PCR machines fail in the field because they blindly follow fixed temperature programs. We use mirror-image L-DNA to optically monitor primer annealing and product melting in real time, letting the instrument react to what's actually happening. First described by <a href="https://doi.org/10.1021/acs.analchem.6b03291" target="_blank" style="color:var(--teal)">Adams et al. in 2017</a>, the approach has since been miniaturized to hit a <a href="https://doi.org/10.3390/bios15040258" target="_blank" style="color:var(--teal)">15-minute PCR benchmark</a> using laser heating.</p>
       <span class="tag">Molecular Diagnostics</span>
+      <a class="research-more" href="research-adaptive-pcr.html">Explore this research →</a>
     </div>
 
     <div class="research-card">
@@ -754,6 +879,7 @@ footer {
       <h3>L-DNA as a Molecular Mirror</h3>
       <p>L-DNA is chemically identical to natural DNA but biologically inert — it can shadow PCR reactions without disrupting them. Beyond cycle control, we use L-DNA to <a href="https://doi.org/10.1021/acs.analchem.4c01611" target="_blank" style="color:var(--teal)">validate amplification products within the same sample</a>, build logic circuits that separate true signal from background leakage, and prototype non-enzymatic amplification systems.</p>
       <span class="tag">Biosensors</span>
+      <a class="research-more" href="research-l-dna-molecular-mirror.html">Explore this research →</a>
     </div>
 
     <div class="research-card">
@@ -761,6 +887,7 @@ footer {
       <h3>SNP Detection Without Sequencing</h3>
       <p>Sequencing is too expensive and infrastructure-heavy for most of the world. We develop oligonucleotide ligation assays and melt-based screens that identify clinically important single-nucleotide variants at the point of care. Targets include <a href="https://doi.org/10.1021/acs.analchem.1c05040" target="_blank" style="color:var(--teal)">HIV drug resistance mutations</a>, antimalarial resistance markers, SARS-CoV-2 variants, and TB rifampicin susceptibility.</p>
       <span class="tag">Global Health</span>
+      <a class="research-more" href="research-snp-detection.html">Explore this research →</a>
     </div>
 
     <div class="research-card">
@@ -768,6 +895,7 @@ footer {
       <h3>Field-Ready Sample Processing</h3>
       <p>Extraction is the step that most often breaks in the field. We strip it down to what's necessary — magnetic beads, a transfer pipette, steel wool, and a magnet. Our <a href="https://doi.org/10.1021/acsami.9b21564" target="_blank" style="color:var(--teal)">high-gradient magnetic separation method</a> pulls TB DNA from up to 200 mL of urine or sputum with no commercial kit, no electricity, and no cold chain.</p>
       <span class="tag">Sample Processing</span>
+      <a class="research-more" href="research-sample-processing.html">Explore this research →</a>
     </div>
 
     <div class="research-card">
@@ -775,6 +903,7 @@ footer {
       <h3>Coffee Ring & Evaporative Diagnostics</h3>
       <p>When a drop evaporates on a flat surface, particles naturally concentrate at the edge — the coffee ring effect. We exploit this physics to make biomarkers visible to the naked eye without any active instrument. The platform detects the malaria biomarker PfHRP-II and has been extended to TB, with the <a href="https://doi.org/10.1021/la203903a" target="_blank" style="color:var(--teal)">original design</a> demonstrated on glass slides requiring no electricity or refrigeration.</p>
       <span class="tag">Microfluidics</span>
+      <a class="research-more" href="research-coffee-ring-diagnostics.html">Explore this research →</a>
     </div>
 
    <div class="research-card">
@@ -782,6 +911,7 @@ footer {
       <h3>Point-of-Care Biosensing Platforms</h3>
       <p>We apply the same low-resource design principles to a range of clinical targets: a <a href="https://doi.org/10.3390/bios12100819" target="_blank" style="color:var(--teal)">microneedle patch that captures Lyme disease spirochetes directly from skin</a>, a cell phone-coupled paper device for ovarian cancer monitoring in urine, smartphone spectroscopy for field-based biosensing, and lateral flow assay enhancement using metal affinity reagents.</p>
       <span class="tag">Point-of-Care</span>
+      <a class="research-more" href="research-poc-biosensing.html">Explore this research →</a>
     </div>
 
   </div>
@@ -853,18 +983,19 @@ footer {
 <section id="team" class="team-section">
   <div class="section-label">The people</div>
   <h2 class="section-title">Our team</h2>
-  <p class="section-sub">A collaborative and dedicated group of engineers and scientists united by a shared mission.</p>
+  <p class="section-sub">Scientists & scholars united by our interest in engineering solutions for global health challenges.</p>
 
   <div class="team-grid">
 
     <!-- Principal Investigator -->
     <div class="team-card">
-      <img src='photos/haselton.jpg' alt="Dr. Dalton Nelson"
+      <img src='photos/haselton.jpg' alt="Prof. Rick Haselton"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
-      <h4>Prof. Rick Haselton</h4>
-      <div class="role">Principal Investigator</div>
-      <p>BME faculty at Vanderbilt. Passionate about translational diagnostics and health equity worldwide.</p>
-    </div>
+      <h4>Rick Haselton, PhD</h4>
+      <div class="role">Professor and Principal Investigator</div>
+      <p>Driven by a mission for global health equity and a curiosity for crazy ideas.</p>
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/in/rick-haselton-7b37088b" target="_blank" rel="noopener noreferrer" aria-label="View Rick Haselton, PhD on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
 
     <!-- Team member 2 -->
     <div class="team-card">
@@ -873,7 +1004,8 @@ footer {
       <h4>Dalton J. Nelson, PhD</h4>
       <div class="role">Postdoctoral Fellow</div>
       <p>Developing molecular diagnostics for improved access to advanced genetic testing.</p>
-    </div>
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/in/dalton-j-nelson" target="_blank" rel="noopener noreferrer" aria-label="View Dalton J. Nelson, PhD on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
 
     <!-- Team member 3 -->
     <div class="team-card">
@@ -882,7 +1014,8 @@ footer {
       <h4>Nick Spurlock, PhD</h4>
       <div class="role">Janitor</div>
       <p>Modeling and designing next generation, adaptive PCR instrumentation.</p>
-    </div>
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=Nicholas%20Spurlock%20Vanderbilt" target="_blank" rel="noopener noreferrer" aria-label="View Nick Spurlock, PhD on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
 
     <!-- Team member 4 -->
     <div class="team-card">
@@ -891,7 +1024,8 @@ footer {
       <h4>David Evans</h4>
       <div class="role">PhD Candidate</div>
       <p>Advancing point-of-care, low-cost platforms for pathogen detection and biosensing.</p>
-    </div>
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=David%20Evans%20Vanderbilt%20Biomedical%20Engineering" target="_blank" rel="noopener noreferrer" aria-label="View David Evans on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
     
     <!-- Team member 5 -->
     <div class="team-card">
@@ -900,29 +1034,42 @@ footer {
       <h4>Junghoon Jang</h4>
       <div class="role">Masters Student</div>
       <p>Focusing on point-of-care sample processing and isothermal molecular diagnostics.</p>
-    </div>    
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=Junghoon%20Jang%20Vanderbilt" target="_blank" rel="noopener noreferrer" aria-label="View Junghoon Jang on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>    
     
     <!-- Team member 6 -->
     <div class="team-card">
       <img src='photos/Alex-Howard.jpg' alt="Alex Howard"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
-      <h4>Alex Howard, BS</h4>
+      <h4>Alex Howard</h4>
       <div class="role">Masters Student</div>
-      <p>Exploring innovative solutions for global health challenges through engineering.</p>
-    </div>
+      <p>Investigating medicine, health, and society in the context of global health disparities.</p>
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=Alex%20Howard%20Vanderbilt" target="_blank" rel="noopener noreferrer" aria-label="View Alex Howard on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
     <!-- ✏️ Add more team members by copying a .team-card block here -->
 
     <!-- Team member 7 -->
     <div class="team-card">
-      <img src='photos/Alex-Howard.jpg' alt="Amanda Wang"
+      <img src='photos/Amanda-Wang.jpg' alt="Amanda Wang"
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>Amanda Wang</h4>
       <div class="role">Undergraduate Student</div>
       <p>Exploring innovative solutions for global health challenges through engineering.</p>
-    </div>
+    
+      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=Amanda%20Wang%20Vanderbilt" target="_blank" rel="noopener noreferrer" aria-label="View Amanda Wang on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
     <!-- ✏️ Add more team members by copying a .team-card block here -->
 
 
+  </div>
+
+  <div class="lab-alumni">
+    <div class="section-label">Former members</div>
+    <h3 class="section-title" style="font-size:clamp(1.5rem,2.4vw,2rem);">Lab Alumni</h3>
+    <p class="section-sub" style="margin-bottom:1.25rem;">Former members of the Haselton Lab. Add names, degrees, years, or current positions below.</p>
+    <ul class="alumni-list">
+      <li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li>
+      <li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li>
+    </ul>
   </div>
 </section>
 
@@ -1354,6 +1501,119 @@ loadPubMed();
   <div class="footer-meta">© 2026 Haselton Laboratory</div>
 </footer>
 
+
+
+<script>
+// ============================================================
+// FULL-PAGE SCROLL-RESPONSIVE DNA DOUBLE HELIX
+// Fixed on the right side from top to bottom. Page scroll controls rotation.
+// ============================================================
+(() => {
+  const canvas = document.getElementById('dna-helix-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let scrollRotation = 0;
+  let smoothRotation = 0;
+  let idle = 0;
+
+  function resize() {
+    const r = canvas.parentElement.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(r.width * dpr));
+    canvas.height = Math.max(1, Math.round(r.height * dpr));
+    canvas.style.width = r.width + 'px';
+    canvas.style.height = r.height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function updateScroll() {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+    scrollRotation = progress * Math.PI * 18;
+  }
+
+  function draw() {
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
+    ctx.clearRect(0, 0, w, h);
+
+    smoothRotation += (scrollRotation - smoothRotation) * 0.085;
+    if (!reduceMotion) idle += 0.0015;
+    const rotation = smoothRotation + idle;
+
+    const cx = w * 0.58;
+    const top = 18;
+    const bottom = h - 18;
+    const turns = Math.max(4.5, h / 150);
+    const radius = Math.min(w * 0.38, 82);
+    const steps = Math.max(90, Math.floor(h / 6));
+    const ptsA = [], ptsB = [];
+
+    for (let i = 0; i <= steps; i++) {
+      const t = i / steps;
+      const phase = t * turns * Math.PI * 2 + rotation;
+      const y = top + t * (bottom - top);
+      ptsA.push({ x: cx + Math.cos(phase) * radius, y, z: Math.sin(phase) });
+      ptsB.push({ x: cx + Math.cos(phase + Math.PI) * radius, y, z: Math.sin(phase + Math.PI) });
+    }
+
+    const rungs = [];
+    for (let i = 0; i <= steps; i += 4) {
+      rungs.push({ a: ptsA[i], b: ptsB[i], z: (ptsA[i].z + 1) / 2 });
+    }
+    rungs.sort((u, v) => u.z - v.z);
+    for (const rung of rungs) {
+      const alpha = 0.18 + rung.z * 0.48;
+      ctx.beginPath();
+      ctx.moveTo(rung.a.x, rung.a.y);
+      ctx.lineTo(rung.b.x, rung.b.y);
+      ctx.strokeStyle = `rgba(207,170,90,${alpha})`;
+      ctx.lineWidth = 1.2 + rung.z * 1.6;
+      ctx.stroke();
+    }
+
+    function strand(points, gold) {
+      for (let i = 1; i < points.length; i++) {
+        const z = (points[i].z + 1) / 2;
+        ctx.beginPath();
+        ctx.moveTo(points[i-1].x, points[i-1].y);
+        ctx.lineTo(points[i].x, points[i].y);
+        ctx.strokeStyle = gold
+          ? `rgba(207,170,90,${0.38 + z * 0.60})`
+          : `rgba(28,28,30,${0.22 + z * 0.55})`;
+        ctx.lineWidth = 2.0 + z * 3.2;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      }
+    }
+    strand(ptsA, true);
+    strand(ptsB, false);
+
+    for (let i = 0; i <= steps; i += 8) {
+      for (const [p, gold] of [[ptsA[i], true], [ptsB[i], false]]) {
+        const z = (p.z + 1) / 2;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.2 + z * 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = gold
+          ? `rgba(207,170,90,${0.58 + z * 0.38})`
+          : `rgba(28,28,30,${0.38 + z * 0.42})`;
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  updateScroll();
+  window.addEventListener('resize', () => { resize(); updateScroll(); }, { passive: true });
+  window.addEventListener('scroll', updateScroll, { passive: true });
+  requestAnimationFrame(draw);
+})();
+</script>
 
 </body>
 </html>
