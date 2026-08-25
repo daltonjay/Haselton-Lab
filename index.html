@@ -252,7 +252,7 @@ section { padding: 6rem 5%; }
    ============================================================ */
 .stats-strip {
   background: var(--navy); padding: 3.5rem 5%;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 2rem;
 }
 .stat { text-align: center; }
 .stat-num {
@@ -354,25 +354,21 @@ footer > * {
 }
 .mission-quote span { color: var(--teal); }
 .mission-body { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
-/* Dark navy panel on the right */
-.mission-visual {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  border-radius: 20px; padding: 2.5rem;
-  display: flex; flex-direction: column; gap: 16px;
-}
-.mission-pill {
-  display: flex; align-items: center; gap: 14px;
-  background: rgba(255,255,255,0.08); border-radius: 12px;
-  padding: 14px 18px;
-}
-.mission-pill-icon {
-  width: 36px; height: 36px; border-radius: 9px;
-  background: rgba(207,170,90,0.2); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px; color: var(--gold);
-}
-.mission-pill-text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.4; }
-.mission-pill-text strong { color: white; display: block; font-size: 13px; margin-bottom: 2px; }
+/* Scrollable mission image gallery on the right */
+.mission-visual { position:relative; border-radius:20px; overflow:hidden; background:#111; min-height:455px; box-shadow:0 10px 32px rgba(26,39,68,.12); }
+.mission-gallery { display:flex; width:100%; height:455px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none; }
+.mission-gallery::-webkit-scrollbar { display:none; }
+.mission-slide { position:relative; flex:0 0 100%; height:100%; scroll-snap-align:start; overflow:hidden; background:linear-gradient(135deg,var(--gold-light),#d8d1c3); }
+.mission-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+.mission-slide::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.18) 48%,transparent 72%); pointer-events:none; }
+.mission-slide-copy { position:absolute; z-index:2; left:28px; right:28px; bottom:34px; color:white; text-shadow:0 2px 10px rgba(0,0,0,.4); }
+.mission-slide-title { font-family:var(--font-serif); font-size:clamp(1.35rem,2.2vw,1.9rem); font-weight:600; line-height:1.2; }
+.mission-slide-subtext { margin-top:7px; max-width:90%; font-family:var(--font-sans); font-size:13px; font-weight:400; line-height:1.45; color:rgba(255,255,255,.86); }
+.mission-gallery-nav { position:absolute; z-index:3; left:28px; right:28px; bottom:15px; display:flex; gap:7px; align-items:center; }
+.mission-gallery-dot { width:22px; height:3px; border:0; border-radius:4px; padding:0; cursor:pointer; background:rgba(255,255,255,.42); transition:width .2s,background .2s; }
+.mission-gallery-dot.active { width:34px; background:var(--gold); }
+@media(max-width:900px){.mission-visual,.mission-gallery{min-height:390px;height:390px}}
+@media(max-width:600px){.mission-visual,.mission-gallery{min-height:320px;height:320px}.mission-slide-copy{left:20px;right:20px;bottom:32px}.mission-slide-subtext{font-size:12px;max-width:100%}.mission-gallery-nav{left:20px;right:20px}}
 
 
 /* ============================================================
@@ -583,6 +579,16 @@ footer {
   width: 100%; height: 100%;
   border: none;
 }
+
+.video-embed-wrapper video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
 .video-card {
   background: white; border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -598,6 +604,28 @@ footer {
 /* Featured (full-width) video */
 .video-card.featured { grid-column: 1 / -1; }
 
+
+/* Smaller video queue — horizontally scrollable and supports any number of cards */
+.video-grid { display:block; }
+.video-card.featured { width:100%; margin-bottom:24px; }
+.video-queue-shell { position:relative; }
+.video-queue {
+  display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - 24px) / 2);
+  gap:24px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  scrollbar-width:none; padding:2px 2px 12px;
+}
+.video-queue::-webkit-scrollbar { display:none; }
+.video-queue .video-card { scroll-snap-align:start; min-width:0; }
+.video-queue-controls { display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:0 0 12px; }
+.video-queue-btn {
+  width:36px; height:36px; border-radius:50%; border:1px solid var(--border);
+  background:rgba(255,255,255,.72); color:var(--navy); cursor:pointer;
+  font:600 18px/1 var(--font-sans); transition:background .2s,border-color .2s,transform .15s;
+}
+.video-queue-btn:hover { background:var(--gold-light); border-color:var(--gold); transform:translateY(-1px); }
+.video-queue-btn:disabled { opacity:.35; cursor:default; transform:none; }
+.video-queue-count { margin-right:auto; font-size:12px; color:var(--muted); }
+@media(max-width:700px){ .video-queue{grid-auto-columns:88%;gap:16px;} }
 
 /* ============================================================
    PUBMED AUTO-LOADING PUBLICATIONS
@@ -829,20 +857,28 @@ footer {
      ============================================================ -->
 <div class="stats-strip">
   <div class="stat">
-    <div class="stat-num">25+</div>
-    <div class="stat-label">Diseases targeted</div>
+    <div class="stat-num">30+</div>
+    <div class="stat-label">Lab members & alumni</div>
   </div>
   <div class="stat">
     <div class="stat-num">130+</div>
     <div class="stat-label">Published papers</div>
   </div>
   <div class="stat">
-    <div class="stat-num">$10B</div>
+    <div class="stat-num">26+</div>
+    <div class="stat-label">Patents</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">>$20M</div>
     <div class="stat-label">Research funding</div>
   </div>
   <div class="stat">
-    <div class="stat-num">30+</div>
-    <div class="stat-label">Lab members & alumni</div>
+    <div class="stat-num">25+</div>
+    <div class="stat-label">Diseases targeted</div>
+  </div>
+    <div class="stat">
+    <div class="stat-num">Many</div>
+    <div class="stat-label">Friends made along the way</div>
   </div>
 </div>
 
@@ -934,41 +970,18 @@ footer {
     <a href="#team" class="btn-primary" style="margin-top:0.5rem">Meet the team →</a>
   </div>
 
-  <!-- Right: dark navy panel with four key facts -->
+  <!-- Right: horizontally scrollable mission image gallery. Replace these five placeholder image paths and titles. -->
   <div class="mission-visual">
-
-    <div class="mission-pill">
-      <div class="mission-pill-icon">🌐</div>
-      <div class="mission-pill-text">
-        <strong>Global reach</strong>
-        Active field studies in 12+ countries across Africa, Asia & Latin America
-      </div>
+    <div class="mission-gallery" id="mission-gallery" aria-label="Haselton Lab mission highlights">
+      <div class="mission-slide"><img src="photos/evans-capetown.png" alt="Mission image placeholder 1"><div class="mission-slide-copy"><div class="mission-slide-title">Engineering at the Point of Need</div><div class="mission-slide-subtext">Designing practical diagnostic tools around the realities of the people and places where they will be used.</div></div></div>
+      <div class="mission-slide"><img src="photos/Nick-Dalton-Thermo.png" alt="Mission image placeholder 2"><div class="mission-slide-copy"><div class="mission-slide-title">From Bench to Field</div><div class="mission-slide-subtext">Translating ideas from fundamental experiments into robust technologies ready for real-world testing.</div></div></div>
+      <div class="mission-slide"><img src="photos/mission-3.jpg" alt="Mission image placeholder 3"><div class="mission-slide-copy"><div class="mission-slide-title">Global Collaboration</div><div class="mission-slide-subtext">Working across disciplines, institutions, and communities to develop solutions with meaningful global reach.</div></div></div>
+      <div class="mission-slide"><img src="photos/mission-4.jpg" alt="Mission image placeholder 4"><div class="mission-slide-copy"><div class="mission-slide-title">Accessible Diagnostic Technology</div><div class="mission-slide-subtext">Creating accurate, affordable platforms that reduce dependence on centralized laboratory infrastructure.</div></div></div>
+      <div class="mission-slide"><img src="photos/mission-5.jpg" alt="Mission image placeholder 5"><div class="mission-slide-copy"><div class="mission-slide-title">Training the Next Generation</div><div class="mission-slide-subtext">Mentoring scientists and engineers to approach global health challenges with creativity, rigor, and purpose.</div></div></div>
     </div>
-
-    <div class="mission-pill">
-      <div class="mission-pill-icon">⚡</div>
-      <div class="mission-pill-text">
-        <strong>Speed to impact</strong>
-        From prototype to field validation in under 18 months
-      </div>
+    <div class="mission-gallery-nav" aria-label="Mission gallery navigation">
+      <button class="mission-gallery-dot active" type="button" aria-label="Show image 1"></button><button class="mission-gallery-dot" type="button" aria-label="Show image 2"></button><button class="mission-gallery-dot" type="button" aria-label="Show image 3"></button><button class="mission-gallery-dot" type="button" aria-label="Show image 4"></button><button class="mission-gallery-dot" type="button" aria-label="Show image 5"></button>
     </div>
-
-    <div class="mission-pill">
-      <div class="mission-pill-icon">💡</div>
-      <div class="mission-pill-text">
-        <strong>Open science</strong>
-        Committed to open-access publishing and open-source device designs
-      </div>
-    </div>
-
-    <div class="mission-pill">
-      <div class="mission-pill-icon">🏫</div>
-      <div class="mission-pill-text">
-        <strong>Training the next generation</strong>
-        Mentoring 25+ graduate students, postdocs & undergraduates
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -1023,9 +1036,9 @@ footer {
         style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;">
       <h4>David Evans</h4>
       <div class="role">PhD Candidate</div>
-      <p>Advancing point-of-care, low-cost platforms for pathogen detection and biosensing.</p>
+      <p>Advancing diagnostics across sample collection, processing, and detection.</p>
     
-      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=David%20Evans%20Vanderbilt%20Biomedical%20Engineering" target="_blank" rel="noopener noreferrer" aria-label="View David Evans on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
+      <a class="linkedin-btn" href="https://www.linkedin.com/in/david-evans-437474aa/" target="_blank" rel="noopener noreferrer" aria-label="View David Evans on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
     
     <!-- Team member 5 -->
     <div class="team-card">
@@ -1056,7 +1069,7 @@ footer {
       <div class="role">Undergraduate Student</div>
       <p>Exploring innovative solutions for global health challenges through engineering.</p>
     
-      <a class="linkedin-btn" href="https://www.linkedin.com/search/results/people/?keywords=Amanda%20Wang%20Vanderbilt" target="_blank" rel="noopener noreferrer" aria-label="View Amanda Wang on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
+      <a class="linkedin-btn" href="https://www.linkedin.com/in/amandatwang/" target="_blank" rel="noopener noreferrer" aria-label="View Amanda Wang on LinkedIn">in&nbsp;&nbsp;LinkedIn</a></div>
     <!-- ✏️ Add more team members by copying a .team-card block here -->
 
 
@@ -1065,10 +1078,14 @@ footer {
   <div class="lab-alumni">
     <div class="section-label">Former members</div>
     <h3 class="section-title" style="font-size:clamp(1.5rem,2.4vw,2rem);">Lab Alumni</h3>
-    <p class="section-sub" style="margin-bottom:1.25rem;">Former members of the Haselton Lab. Add names, degrees, years, or current positions below.</p>
+    <p class="section-sub" style="margin-bottom:1.25rem;">Recent graduates/escapees of the Haselton Lab & their most recent positions in our lab.</p>
     <ul class="alumni-list">
-      <li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li>
-      <li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li><li>Alumni Name — Degree / Role</li>
+      <li>Megan Pask, EdD — Lab Manager, Staff Scientist</li><li>Swesh Dunghel — Undergraduate Researcher</li><li>Kunal Chugh — Undergraduate Researcher</li>
+      <li>Nicole Malofsky, PhD — Doctoral Student</li><li>Nick Adams, PhD — Research Assistant Professor</li><li>Bill Gabella, PhD — Research Assistant Professor</li>
+      <li>Rosana Alfaro — Undergraduate Researcher</li><li>Stephanie Pearlman, PhD — Doctoral Student</li><li>Emily Kight, PhD — Doctoral Student</li>
+      <li>Zack Zimmers, PhD — Doctoral Student</li><li>Mindy Leelawong, PhD — Research Assistant Professor</li><li>Tricia Russ, PhD — Research Assistant Professor</li>
+      <li>Tom Scherr, PhD — Research Assistant Professor</li><li>Hannah Stepp — Undergraduate Researcher</li><li>Emma Wheat — Undergraduate Researcher</li>
+      <li>Josh Trantum, PhD — Doctoral Student</li><li>Christia Victoriano, PhD — Undergraduate Student</li><li>Alex Boyd, PhD — Undergraduate Researcher</li>
     </ul>
   </div>
 </section>
@@ -1098,7 +1115,7 @@ footer {
 <section id="videos" class="video-section">
   <div class="section-label">Lab in action</div>
   <h2 class="section-title">Videos</h2>
-  <p class="section-sub">Watch our research in action — from bench-top demonstrations to field deployments around the world.</p>
+  <p class="section-sub">Watch our research and teammates in action!</p>
 
   <div class="video-grid">
 
@@ -1122,11 +1139,19 @@ footer {
       </div>
       <div class="video-card-meta">
         <h4>Haselton Lab Overview</h4>  <!-- ✏️ Edit video title -->
-        <p>An introduction to our lab's mission, team, and research on accessible diagnostics for global health.</p>
+        <p>An introduction to our lab's mission, team, and research.</p>
         <span class="tag">Featured</span>
       </div>
     </div>
 
+    <!-- Smaller videos: add as many .video-card blocks as you want inside .video-queue. -->
+    <div class="video-queue-shell">
+      <div class="video-queue-controls">
+        <span class="video-queue-count" id="video-queue-count"></span>
+        <button class="video-queue-btn" id="video-queue-prev" type="button" aria-label="Previous videos">&#8592;</button>
+        <button class="video-queue-btn" id="video-queue-next" type="button" aria-label="Next videos">&#8594;</button>
+      </div>
+      <div class="video-queue" id="video-queue" aria-label="More lab videos">
     <!-- Video 2 — replace src with your YouTube or Google Drive embed URL -->
     <div class="video-card">
       <div class="video-embed-wrapper">
@@ -1141,7 +1166,7 @@ footer {
       <div class="video-card-meta">
         <h4>VU BME Department Overview</h4>
         <p>Check out our department's people, mission, and research focus.</p>
-        <span class="tag">Research</span>
+        <span class="tag">People</span>
       </div>
     </div>
 
@@ -1163,7 +1188,65 @@ footer {
       </div>
     </div>
 
+        <!-- Video 4 — replace src with your YouTube or Google Drive embed URL -->
+    <div class="video-card">
+      <div class="video-embed-wrapper">
+        <!-- ✏️ Replace VIDEO_ID below, or use a Google Drive preview URL -->
+        <iframe
+          src="https://www.youtube.com/watch?v=NW9qQlBeKUs"
+          title="NSF I-Corps Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="video-card-meta">
+        <h4>The Extractionator: Automated Biomarker Isolation</h4>
+        <p>Automated and self-contained extraction of disease biomarkers in a single length of tubing using functionalized magnetic particles and surface tension valves.</p>
+        <span class="tag">Research</span>
+      </div>
+    </div>
+            <!-- Video 4 — replace src with your YouTube or Google Drive embed URL -->
+    <div class="video-card">
+      <div class="video-embed-wrapper">
+        <!-- ✏️ Replace VIDEO_ID below, or use a Google Drive preview URL -->
+        <iframe
+          src="https://www.youtube.com/watch?v=cb7DvnlSjWE&t=471s"
+          title="OLAgen Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+          <div class="video-card-meta">
+        <h4>OLAgen: A Software to Automate OLA Design for SNP Detection</h4>
+        <p>This video provides a guide on how to use and how to install OLAgen, a software tool for reagent design to expand access to single nucleotide polymorphism detection by the oligonucleotide ligation assay.</p>
+        <span class="tag">Research</span>
+      </div>
+    </div>
+
+<!-- Video 5 — Direct MP4 Video Embed -->
+<div class="video-card">
+  <div class="video-embed-wrapper">
+
+    <video controls preload="metadata">
+      <source src="photos/LFA Enhancement Technology.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+  </div>
+
+  <div class="video-card-meta">
+    <h4>Malaria Lateral Flow Assay Enhancement Demo</h4>
+    <p></p>
+    <span class="tag">Research</span>
+  </div>
+</div>
+
+
     <!-- ✏️ Add more videos by copying a .video-card block above -->
+
+  </div>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -1371,7 +1454,7 @@ loadPubMed();
       <div class="join-option-dot"></div>
       <div class="join-option-text">
         <h5>Postdoctoral fellows</h5>
-        <p>We have openings for postdocs with expertise in microfluidics, biosensing, or implementation science. NIH F-award support available.</p>
+        <p>We have openings for postdocs with expertise in molecular diagnostics, biosensing, instrumentation, or implementation science.</p>
       </div>
     </div>
 
@@ -1386,7 +1469,7 @@ loadPubMed();
     <div class="join-option">
       <div class="join-option-dot"></div>
       <div class="join-option-text">
-        <h5>Industry & NGO partners</h5>
+        <h5>Industry & Non-governmental organization partners</h5>
         <p>We collaborate with global health organizations, diagnostic companies, and foundations to accelerate deployment of our technologies.</p>
       </div>
     </div>
@@ -1413,14 +1496,14 @@ loadPubMed();
     <!-- Left: contact details -->
     <div>
       <p style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;">
-        We're located in the Vanderbilt University School of Engineering in Nashville, Tennessee. We love hearing from prospective students, partners, and anyone passionate about global health.
+        We're located in the Vanderbilt University School of Engineering in Nashville, Tennessee. We love hearing from prospective students, partners, and anyone passionate about biomedical engineering and molecular diagnostics.
       </p>
 
       <div class="contact-detail">
         <div class="contact-detail-icon">📍</div>
         <div class="contact-detail-text">
           <strong>Address</strong>
-          2301 Vanderbilt Place, PMB 351826<br>Nashville, TN 37235   <!-- ← Edit address -->
+          5932 Stevenson Center<br>Nashville, TN 37203   <!-- ← Edit address -->
         </div>
       </div>
 
@@ -1502,6 +1585,91 @@ loadPubMed();
 </footer>
 
 
+
+<script>
+// ============================================================
+// SMALL VIDEO QUEUE
+// Add/remove .video-card elements inside #video-queue; controls adapt automatically.
+// ============================================================
+(() => {
+  const queue = document.getElementById('video-queue');
+  const prev = document.getElementById('video-queue-prev');
+  const next = document.getElementById('video-queue-next');
+  const count = document.getElementById('video-queue-count');
+  if (!queue || !prev || !next) return;
+
+  const cards = () => [...queue.querySelectorAll(':scope > .video-card')];
+  const step = () => {
+    const first = cards()[0];
+    if (!first) return queue.clientWidth;
+    const gap = parseFloat(getComputedStyle(queue).columnGap || getComputedStyle(queue).gap) || 0;
+    return first.getBoundingClientRect().width + gap;
+  };
+  function update() {
+    const items = cards();
+    if (count) count.textContent = `${items.length} video${items.length === 1 ? '' : 's'} in queue`;
+    prev.disabled = queue.scrollLeft <= 4;
+    next.disabled = queue.scrollLeft + queue.clientWidth >= queue.scrollWidth - 4;
+  }
+  prev.addEventListener('click', () => queue.scrollBy({left:-step(), behavior:'smooth'}));
+  next.addEventListener('click', () => queue.scrollBy({left: step(), behavior:'smooth'}));
+  queue.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update, {passive:true});
+  update();
+})();
+</script>
+
+<script>
+(() => {
+  const gallery = document.getElementById('mission-gallery');
+  if (!gallery) return;
+
+  const dots = [...document.querySelectorAll('.mission-gallery-dot')];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cycleDelay = 6500; // milliseconds between automatic slides
+  let currentIndex = 0;
+  let cycleTimer = null;
+
+  function showSlide(index, behavior = 'smooth') {
+    currentIndex = (index + dots.length) % dots.length;
+    gallery.scrollTo({ left: gallery.clientWidth * currentIndex, behavior });
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+  }
+
+  function stopCycle() {
+    if (cycleTimer) clearInterval(cycleTimer);
+    cycleTimer = null;
+  }
+
+  function startCycle() {
+    stopCycle();
+    if (reduceMotion || dots.length < 2) return;
+    cycleTimer = setInterval(() => showSlide(currentIndex + 1), cycleDelay);
+  }
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => {
+    showSlide(i);
+    startCycle();
+  }));
+
+  gallery.addEventListener('scroll', () => {
+    currentIndex = Math.max(0, Math.min(dots.length - 1, Math.round(gallery.scrollLeft / gallery.clientWidth)));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+  }, { passive: true });
+
+  // Pause while a visitor is interacting with the gallery, then resume.
+  gallery.addEventListener('mouseenter', stopCycle);
+  gallery.addEventListener('mouseleave', startCycle);
+  gallery.addEventListener('touchstart', stopCycle, { passive: true });
+  gallery.addEventListener('touchend', startCycle, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopCycle(); else startCycle();
+  });
+
+  startCycle();
+})();
+</script>
 
 <script>
 // ============================================================
