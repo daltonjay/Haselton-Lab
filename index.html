@@ -101,13 +101,20 @@ nav {
   text-decoration: none; font-size: 14px; font-weight: 500;
   color: var(--muted); transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--navy); }
+.nav-links a:hover { color: var(--gold); }
 .nav-cta {
   background: var(--navy); color: white !important;
   padding: 8px 18px; border-radius: 8px;
   font-size: 13px !important;
 }
-.nav-cta:hover { background: var(--navy-mid); color: white !important; }
+.nav-cta:hover { background: var(--gold-dark); color: white !important; }
+
+.nav-cta2 {
+  background: var(--gold-dark); color: white !important;
+  padding: 8px 18px; border-radius: 8px;
+  font-size: 13px !important;
+}
+.nav-cta2:hover { background: var(--gold); color: white !important; }
 
 
 /* ============================================================
@@ -797,7 +804,8 @@ footer {
     <li><a href="#videos">Videos</a></li>
     <li><a href="#publications">Publications</a></li>
     <li><a href="#join">Join Us</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>  <!-- ← CTA button -->
+    <li><a href="#contact" class="nav-cta">Contact</a></li> 
+    <li><a href="#contact" class="nav-cta2">Donate</a></li>  <!-- ← CTA button -->
   </ul>
 </nav>
 
@@ -1490,7 +1498,7 @@ loadPubMed();
 <section id="contact" class="contact-section">
   <div class="section-label">Say hello</div>
   <h2 class="section-title">Contact us</h2>
-  <p class="section-sub">Whether you're a student, collaborator, journalist, or community partner — our door is always open.</p>
+  <p class="section-sub">Whether you're a student, collaborator, donor,journalist, or community partner — our door is always open.</p>
 
   <div class="contact-grid">
 
@@ -1525,7 +1533,14 @@ loadPubMed();
       </div>
 
       <!-- Map placeholder — see CSS comment above to swap for a real Google Maps embed -->
-      <div class="map-placeholder">📍 Vanderbilt University — Nashville, TN</div>
+      <iframe
+        src="https://maps.google.com/maps?q=Vanderbilt+University&output=embed"
+        width="100%"
+        height="180"
+        style="border:0;border-radius:12px;"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
     </div>
 
     <!-- Right: contact form -->
@@ -1554,6 +1569,7 @@ loadPubMed();
           <option>Undergraduate student</option>
           <option>Industry / NGO partner</option>
           <option>Journalist / media</option>
+          <option>Donor</option>
           <option>Other</option>
         </select>
       </div>
